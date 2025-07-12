@@ -5,10 +5,12 @@ import StatsCard from "./StatsCard";
 import ActivityItem from "./ActivityItem";
 import UserChart from "./SalesChart";
 import UserStatusChart from "./ConversionChart";
+import AddEventForm from "./AddEventForm";
 import "./Dashboard.css";
 
 const Dashboard = () => {
   const [dateTime, setDateTime] = useState(dayjs());
+  const [showAddEvent, setShowAddEvent] = useState(false);
 
   const userData = [
     { month: "Jan", active: 450, inactive: 120, expired: 30, total: 600 },
@@ -52,10 +54,13 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="header-actions">
+          <button className="btn-primary" onClick={() => setShowAddEvent(true)}>+ Add Event</button>
           <button className="btn-primary">+ Add User</button>
           <button className="btn-secondary">Export Users</button>
         </div>
       </div>
+
+      {showAddEvent && <AddEventForm onClose={() => setShowAddEvent(false)} />}
 
       {/* Stats Cards */}
       <div className="stats-grid">
