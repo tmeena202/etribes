@@ -1,36 +1,36 @@
-// src/components/Dashboard/AdvancedDashboard.jsx
+// src/components/Dashboard/Dashboard.jsx
 import React, { useState, useEffect } from "react";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  CartesianGrid,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
 import dayjs from "dayjs";
+import StatsCard from "./StatsCard";
+import ActivityItem from "./ActivityItem";
+import UserChart from "./SalesChart";
+import UserStatusChart from "./ConversionChart";
 import "./Dashboard.css";
 
-const AdvancedDashboard = () => {
+const Dashboard = () => {
   const [dateTime, setDateTime] = useState(dayjs());
 
-  const graphData = [
-    { month: "Jan", active: 30, inactive: 10 },
-    { month: "Feb", active: 40, inactive: 15 },
-    { month: "Mar", active: 35, inactive: 12 },
-    { month: "Apr", active: 50, inactive: 20 },
-    { month: "May", active: 45, inactive: 25 },
-    { month: "Jun", active: 60, inactive: 30 },
-    { month: "Jul", active: 70, inactive: 40 },
-    { month: "Jan", active: 30, inactive: 10 },
-    { month: "Feb", active: 40, inactive: 15 },
-    { month: "Mar", active: 35, inactive: 12 },
-    { month: "Apr", active: 50, inactive: 20 },
-    { month: "May", active: 45, inactive: 25 },
-    { month: "Jun", active: 60, inactive: 30 },
-    { month: "Jul", active: 70, inactive: 40 },
+  const userData = [
+    { month: "Jan", active: 450, inactive: 120, expired: 30, total: 600 },
+    { month: "Feb", active: 520, inactive: 140, expired: 35, total: 695 },
+    { month: "Mar", active: 480, inactive: 110, expired: 25, total: 615 },
+    { month: "Apr", active: 610, inactive: 160, expired: 40, total: 810 },
+    { month: "May", active: 580, inactive: 150, expired: 45, total: 775 },
+    { month: "Jun", active: 720, inactive: 180, expired: 50, total: 950 },
+  ];
+
+  const userStats = [
+    { title: "Total Users", value: "1,247", change: "+12%", icon: "👥", color: "#3b82f6" },
+    { title: "Active Users", value: "892", change: "+8%", icon: "✅", color: "#10b981" },
+    { title: "Inactive Users", value: "245", change: "-3%", icon: "⏸️", color: "#f59e0b" },
+    { title: "Expired Users", value: "110", change: "+5%", icon: "❌", color: "#ef4444" },
+  ];
+
+  const recentActivities = [
+    { id: 1, customer: "John Smith", action: "Account activated", amount: "Active", time: "2 min ago" },
+    { id: 2, customer: "Sarah Johnson", action: "Subscription renewed", amount: "Active", time: "5 min ago" },
+    { id: 3, customer: "Mike Wilson", action: "Account expired", amount: "Expired", time: "10 min ago" },
+    { id: 4, customer: "Emma Davis", action: "Account deactivated", amount: "Inactive", time: "15 min ago" },
   ];
 
   useEffect(() => {
@@ -41,84 +41,51 @@ const AdvancedDashboard = () => {
   }, []);
 
   return (
-    <div className="advanced-dashboard">
-      <header className="dashboard-header">
-        <div className="left-section">
-          <input type="text" placeholder="Search..." className="search-bar" />
-        </div>
-        <div className="center-section">
-          <p className="date-time">
-            {dateTime.format("dddd, MMM D, YYYY - h:mm:ss A")}
-          </p>
-          <p className="year">Year: {dateTime.format("YYYY")}</p>
-        </div>
-        <div className="right-section">
-          <button className="add-event-btn">+ Add Event</button>
-          <img
-            src="https://i.pravatar.cc/40"
-            alt="Profile"
-            className="profile-icon"
-          />
-        </div>
-      </header>
-
-      <section className="graph-section">
-        <h2>Membership Summary</h2>
-        <ResponsiveContainer width="100%" height={400}>
-          <BarChart
-            data={graphData}
-            margin={{ top: 20, right: 30, left: 0, bottom: 5 }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="month" />
-            <YAxis />
-            <Tooltip />
-            <Legend verticalAlign="top" />
-            <Bar
-              dataKey="active"
-              stackId="a"
-              fill="#22c55e"
-              name="Active Members"
-            />
-            <Bar
-              dataKey="inactive"
-              stackId="a"
-              fill="#ef4444"
-              name="Inactive Members"
-            />
-          </BarChart>
-        </ResponsiveContainer>
-      </section>
-      <section className="stat-cards">
-        <div className="card user-card active">
-          <div className="card-content">
-            <h4>Active Members</h4>
-            <p className="count">12</p>
-            <a href="#">View active members</a>
+    <div className="dashboard">
+      {/* Header */}
+      <div className="dashboard-header">
+        <div className="header-content">
+          <h1>User Management Dashboard</h1>
+          <div className="time-date-display">
+            <div className="current-time">{dateTime.format("HH:mm:ss")}</div>
+            <div className="current-date">{dateTime.format("dddd, MMMM D, YYYY")}</div>
           </div>
-          <div className="icon-box">👤</div>
         </div>
+        <div className="header-actions">
+          <button className="btn-primary">+ Add User</button>
+          <button className="btn-secondary">Export Users</button>
+        </div>
+      </div>
 
-        <div className="card user-card inactive">
-          <div className="card-content">
-            <h4>Inactive Members</h4>
-            <p className="count">5</p>
-            <a href="#">View inactive members</a>
-          </div>
-          <div className="icon-box">🚫</div>
-        </div>
+      {/* Stats Cards */}
+      <div className="stats-grid">
+        {userStats.map((stat, index) => (
+          <StatsCard key={index} {...stat} />
+        ))}
+      </div>
 
-        <div className="card user-card expired">
-          <div className="card-content">
-            <h4>Membership Expired</h4>
-            <p className="count">3</p>
-            <a href="#">View expired</a>
+      {/* Charts Section */}
+      <div className="charts-section">
+        <UserChart data={userData} />
+        <UserStatusChart data={userData} />
+      </div>
+
+      {/* Recent Activity */}
+      <div className="activity-section">
+        <div className="activity-card">
+          <div className="card-header">
+            <h3>Recent User Activities</h3>
+            <button className="view-all-btn">View All</button>
           </div>
-          <div className="icon-box">📅</div>
+          <div className="activity-list">
+            {recentActivities.map((activity) => (
+              <ActivityItem key={activity.id} {...activity} />
+            ))}
+          </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 };
 
-export default AdvancedDashboard;
+export default Dashboard;

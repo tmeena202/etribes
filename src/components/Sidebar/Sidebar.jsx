@@ -14,11 +14,15 @@ import {
   FiChevronRight,
 } from "react-icons/fi";
 
-const Sidebar = () => {
+const Sidebar = ({ onToggle }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const toggleSidebar = () => {
-    setIsCollapsed(!isCollapsed);
+    const newCollapsedState = !isCollapsed;
+    setIsCollapsed(newCollapsedState);
+    if (onToggle) {
+      onToggle(newCollapsedState);
+    }
   };
 
   return (

@@ -1,19 +1,33 @@
+/* App Container */
 .app-container {
   display: flex;
   min-height: 100vh;
+  background-color: #f5f7fa;
 }
 
-.sidebar {
-  width: 240px;
-  background-color: #343a40;
-  color: white;
-  padding: 20px;
-  box-sizing: border-box;
-}
-
+/* Main Content */
 .main-content {
   flex: 1;
-  padding: 20px;
-  background-color: #f8f9fa;
+  margin-left: 260px;
+  padding: 24px;
+  transition: margin-left 0.3s ease;
+  min-height: 100vh;
   box-sizing: border-box;
+}
+
+/* When sidebar is collapsed */
+.main-content.sidebar-collapsed {
+  margin-left: 80px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+    padding: 16px;
+  }
+
+  .main-content.sidebar-collapsed {
+    margin-left: 0;
+  }
 }
