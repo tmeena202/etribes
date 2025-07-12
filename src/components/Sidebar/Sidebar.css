@@ -14,12 +14,15 @@
     z-index: 1000;
     overflow-y: auto;
     box-shadow: 4px 0 24px rgba(0, 0, 0, 0.1);
+    transition: width 0.3s ease, padding 0.3s ease;
+    will-change: width;
 }
 
 /* Header */
 .sidebar-header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin-bottom: 2rem;
 }
 
@@ -36,6 +39,20 @@
     content: "✦";
     color: #ffffff;
     font-size: 1.5rem;
+}
+
+/* Toggle Button */
+.toggle-btn {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.sidebar.collapsed .toggle-btn {
+    transform: rotate(180deg);
 }
 
 /* Menu Items */
@@ -94,6 +111,26 @@
     color: currentColor;
 }
 
+/* Text Animations for Collapse */
+.menu a span,
+.user-info {
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.sidebar.collapsed .menu a span,
+.sidebar.collapsed .user-info {
+    opacity: 0;
+    transform: translateX(-10px);
+    pointer-events: none;
+}
+
+.sidebar:not(.collapsed) .menu a span,
+.sidebar:not(.collapsed) .user-info {
+    opacity: 1;
+    transform: translateX(0);
+    transition-delay: 0.1s;
+}
+
 /* Badge */
 .menu a .badge {
     margin-left: auto;
@@ -138,32 +175,31 @@
     flex-shrink: 0;
 }
 
-.user-info {
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    overflow: hidden;
+/* Collapse Sidebar */
+.sidebar.collapsed {
+    width: 80px;
+    padding: 20px 10px;
 }
 
-.user-info .name {
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: #ffffff;
-    margin-bottom: 2px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.sidebar.collapsed .logo {
+    font-size: 1.5rem;
+    justify-content: center;
 }
 
-.user-info .email {
-    font-size: 0.8rem;
-    color: #a3d9cc;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.sidebar.collapsed .logo::before {
+    margin-right: 0;
 }
 
-/* Scrollbar Styling */
+.sidebar.collapsed .menu a {
+    justify-content: center;
+    padding: 12px;
+}
+
+.sidebar.collapsed .menu a svg {
+    margin: 0;
+}
+
+/* Hide scrollbars (Optional) */
 .sidebar::-webkit-scrollbar {
     width: 6px;
 }
@@ -179,21 +215,4 @@
 
 .sidebar::-webkit-scrollbar-thumb:hover {
     background: #3d7b5f;
-}
-
-/* Additional Enhancement: Subtle Animation */
-.sidebar {
-    animation: slideIn 0.4s ease-out;
-}
-
-@keyframes slideIn {
-    from {
-        transform: translateX(-100%);
-        opacity: 0;
-    }
-
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
 }

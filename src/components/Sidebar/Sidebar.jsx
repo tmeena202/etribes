@@ -1,5 +1,5 @@
 // src/components/Sidebar.jsx
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "./Sidebar.css";
 import {
@@ -10,13 +10,24 @@ import {
   FiShield,
   FiHome,
   FiPhone,
+  FiChevronLeft,
+  FiChevronRight,
 } from "react-icons/fi";
 
 const Sidebar = () => {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
   return (
-    <aside className="sidebar">
+    <aside className={`sidebar ${isCollapsed ? "collapsed" : ""}`}>
       <div className="sidebar-header">
-        <div className="logo">E-Tribes</div>
+        <div className="logo">{!isCollapsed && "E-Tribes"}</div>
+        <button className="toggle-btn" onClick={toggleSidebar}>
+          {isCollapsed ? <FiChevronRight /> : <FiChevronLeft />}
+        </button>
       </div>
 
       <nav className="menu">
@@ -27,7 +38,7 @@ const Sidebar = () => {
               className={({ isActive }) => (isActive ? "active" : "")}
             >
               <FiHome />
-              <span>Dashboard</span>
+              {!isCollapsed && <span>Dashboard</span>}
             </NavLink>
           </li>
           <li>
@@ -36,7 +47,7 @@ const Sidebar = () => {
               className={({ isActive }) => (isActive ? "active" : "")}
             >
               <FiUser />
-              <span>User Management</span>
+              {!isCollapsed && <span>User Management</span>}
             </NavLink>
           </li>
           <li>
@@ -45,7 +56,7 @@ const Sidebar = () => {
               className={({ isActive }) => (isActive ? "active" : "")}
             >
               <FiCalendar />
-              <span>Events Management</span>
+              {!isCollapsed && <span>Events Management</span>}
             </NavLink>
           </li>
           <li>
@@ -54,7 +65,7 @@ const Sidebar = () => {
               className={({ isActive }) => (isActive ? "active" : "")}
             >
               <FiPhone />
-              <span>Important Contacts</span>
+              {!isCollapsed && <span>Important Contacts</span>}
             </NavLink>
           </li>
           <li>
@@ -63,7 +74,7 @@ const Sidebar = () => {
               className={({ isActive }) => (isActive ? "active" : "")}
             >
               <FiLogOut />
-              <span>Logout</span>
+              {!isCollapsed && <span>Logout</span>}
             </NavLink>
           </li>
         </ul>
@@ -75,10 +86,12 @@ const Sidebar = () => {
           alt="User avatar"
           className="avatar"
         />
-        <div className="user-info">
-          <div className="name">Fandawu Punx</div>
-          <div className="email">fandawu88@gmail.com</div>
-        </div>
+        {!isCollapsed && (
+          <div className="user-info">
+            <div className="name">Fandawu Punx</div>
+            <div className="email">fandawu88@gmail.com</div>
+          </div>
+        )}
       </div>
     </aside>
   );
