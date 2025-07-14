@@ -12,10 +12,13 @@ import {
   FiPhone,
   FiChevronLeft,
   FiChevronRight,
+  FiChevronDown,
+  FiChevronUp,
 } from "react-icons/fi";
 
 const Sidebar = ({ onToggle }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [eventDropdownOpen, setEventDropdownOpen] = useState(false);
 
   const toggleSidebar = () => {
     const newCollapsedState = !isCollapsed;
@@ -47,30 +50,43 @@ const Sidebar = ({ onToggle }) => {
           </li>
           <li>
             <NavLink
-              to="/User"
+              to="/register"
               className={({ isActive }) => (isActive ? "active" : "")}
             >
               <FiUser />
-              {!isCollapsed && <span>User Management</span>}
+              {!isCollapsed && <span>New Registration</span>}
             </NavLink>
           </li>
+          {/* Event Management Dropdown */}
           <li>
-            <NavLink
-              to="/events"
-              className={({ isActive }) => (isActive ? "active" : "")}
+            <div
+              className="sidebar-dropdown-toggle"
+              style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', gap: 12, padding: '12px 16px', borderRadius: 8 }}
+              onClick={() => setEventDropdownOpen((open) => !open)}
             >
               <FiCalendar />
-              {!isCollapsed && <span>Events Management</span>}
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/contacts"
-              className={({ isActive }) => (isActive ? "active" : "")}
-            >
-              <FiPhone />
-              {!isCollapsed && <span>Important Contacts</span>}
-            </NavLink>
+              {!isCollapsed && <span>Event Management</span>}
+              {!isCollapsed && (eventDropdownOpen ? <FiChevronUp /> : <FiChevronDown />)}
+            </div>
+            {!isCollapsed && eventDropdownOpen && (
+              <ul className="sidebar-dropdown" style={{ listStyle: 'none', paddingLeft: 32, marginTop: 4 }}>
+                <li>
+                  <NavLink to="/events/calendar" className={({ isActive }) => (isActive ? "active" : "")}>Calendar</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/events/today" className={({ isActive }) => (isActive ? "active" : "")}>Today's Events</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/events/upcoming" className={({ isActive }) => (isActive ? "active" : "")}>Upcoming Event</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/events/past" className={({ isActive }) => (isActive ? "active" : "")}>Past Event</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/events/all" className={({ isActive }) => (isActive ? "active" : "")}>All Event</NavLink>
+                </li>
+              </ul>
+            )}
           </li>
           <li>
             <NavLink
@@ -91,9 +107,11 @@ const Sidebar = ({ onToggle }) => {
           className="avatar"
         />
         {!isCollapsed && (
-          <div className="user-info">
-            <div className="name">Fandawu Punx</div>
-            <div className="email">fandawu88@gmail.com</div>
+          <div className="user-info" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <span className="name" style={{ fontWeight: 600, fontSize: 15, color: '#fff' }}>Fandawu Punx</span>
+            <button className="user-settings-btn" style={{ background: 'none', border: 'none', color: '#b6e2d3', cursor: 'pointer', padding: 0, marginLeft: 4, fontSize: 18 }}>
+              <FiSettings />
+            </button>
           </div>
         )}
       </div>

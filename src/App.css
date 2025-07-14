@@ -8,7 +8,7 @@
 /* Main Content */
 .main-content {
   flex: 1;
-  margin-left: 260px;
+  margin-left: 200px;
   padding: 24px;
   transition: margin-left 0.3s ease;
   min-height: 100vh;
