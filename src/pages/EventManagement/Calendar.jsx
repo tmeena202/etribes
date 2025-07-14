@@ -86,15 +86,7 @@ const CalendarPage = () => {
           <div className="live-time">{time.toLocaleString()}</div>
         </div>
         <div className="calendar-main-content">
-          {/* Legend */}
-          <div className="calendar-legend-card">
-            <h3>Legend</h3>
-            <div className="legend-item"><span className="legend-dot past"></span> Past</div>
-            <div className="legend-item"><span className="legend-dot upcoming"></span> Upcoming</div>
-            <div className="legend-item"><span className="legend-dot today-event"></span> Today’s Event</div>
-            <div className="legend-item"><span className="legend-dot today-gold"></span> Today</div>
-          </div>
-
+    
           {/* Calendar */}
           <div className="calendar-glass-card">
             <Calendar
@@ -124,6 +116,17 @@ const CalendarPage = () => {
               ))
             )}
           </div>
+
+
+           {/* Legend */}
+          <div className="calendar-legend-card">
+            <h3>Legend</h3>
+            <div className="legend-item"><span className="legend-dot past"></span> Past</div>
+            <div className="legend-item"><span className="legend-dot upcoming"></span> Upcoming</div>
+            <div className="legend-item"><span className="legend-dot today-event"></span> Today’s Event</div>
+            <div className="legend-item"><span className="legend-dot today-gold"></span> Today</div>
+          </div>
+
         </div>
   </div>
     </>
