@@ -1,6 +1,8 @@
 import React from "react";
 import "./AddEventForm.css";
 import { FaPlus } from "react-icons/fa";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const AddEventForm = ({ open, form, onChange, onSubmit, onClose }) => {
   if (!open) return null;
@@ -26,7 +28,19 @@ const AddEventForm = ({ open, form, onChange, onSubmit, onClose }) => {
           </div>
           <div className="add-event-field">
             <label htmlFor="datetime">Date & Time</label>
-            <input id="datetime" name="datetime" type="datetime-local" value={form.datetime} onChange={onChange} required />
+            <DatePicker
+              id="datetime"
+              name="datetime"
+              selected={form.datetime ? new Date(form.datetime) : null}
+              onChange={date => onChange({ target: { name: "datetime", value: date } })}
+              showTimeSelect
+              timeFormat="HH:mm"
+              timeIntervals={15}
+              dateFormat="MMMM d, yyyy h:mm aa"
+              placeholderText="Select date and time"
+              className="add-event-datepicker"
+              required
+            />
           </div>
           <div className="add-event-actions">
             <button type="button" className="add-event-cancel" onClick={onClose}>Cancel</button>

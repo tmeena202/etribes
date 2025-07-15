@@ -79,9 +79,9 @@ const AllEvent = () => {
   };
 
   return (
-    <div className={`main-content ${styles.mainContent}`}>
-      <div className={styles.container}>
-        <div className={styles.headerRow}>
+    <main className={styles.mainContent}>
+      <section className={styles.container}>
+        <header className={styles.headerRow}>
           <h2 className={styles.title}>
             <FaCalendarAlt style={{ color: "#2563eb" }} />
             All Events
@@ -92,12 +92,12 @@ const AllEvent = () => {
           >
             <FaPlus /> Add Event
           </button>
-        </div>
+        </header>
         <div className={styles.infoText}>
           <FaInfoCircle style={{ fontSize: "1.2em" }} />
           Here you can view, add, and manage all events—past, present, and future. Stay organized and keep track of everything in one place!
         </div>
-        <div className={styles.card}>
+        <section className={styles.card}>
           <table className={styles.table}>
             <thead className={styles.thead}>
               <tr>
@@ -130,8 +130,8 @@ const AllEvent = () => {
               )}
             </tbody>
           </table>
-        </div>
-      </div>
+        </section>
+      </section>
       <AddEventForm
         open={showModal}
         form={form}
@@ -139,7 +139,7 @@ const AllEvent = () => {
         onSubmit={handleAddEvent}
         onClose={() => setShowModal(false)}
       />
-    </div>
+    </main>
   );
 };
 
