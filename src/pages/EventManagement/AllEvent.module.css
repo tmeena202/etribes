@@ -1,10 +1,13 @@
 .mainContent {
+  display: flex;
+  justify-content: center;
   padding: 3rem 2rem;
   min-height: 100vh;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(120deg, #e0f2fe 0%, #f0fdf4 50%, #dbeafe 100%);
   position: relative;
   overflow: hidden;
+  margin-left: 0;
 }
 .mainContent::before {
   content: "";
@@ -18,12 +21,16 @@
   z-index: 0;
   pointer-events: none;
 }
+
 .container {
+  width: 100%;
   max-width: 1150px;
   margin: 0 auto;
+  padding: 0 1rem;
   position: relative;
   z-index: 1;
 }
+
 .headerRow {
   display: flex;
   justify-content: space-between;
@@ -31,6 +38,7 @@
   margin-bottom: 2rem;
   flex-wrap: wrap;
 }
+
 .title {
   font-weight: 900;
   font-size: 2.2rem;
@@ -41,6 +49,7 @@
   align-items: center;
   gap: 0.5rem;
 }
+
 .addBtn {
   background: linear-gradient(to right, #2563eb, #1d4ed8);
   color: #fff;
@@ -61,6 +70,7 @@
   background: #16a34a;
   transform: scale(1.05);
 }
+
 .infoText {
   background: rgba(37, 99, 235, 0.07);
   color: #2563eb;
@@ -75,6 +85,7 @@
   align-items: center;
   gap: 0.7rem;
 }
+
 .card {
   background: #fff;
   border-radius: 16px;
@@ -86,6 +97,7 @@
 .card:hover {
   box-shadow: 0 8px 32px rgba(0,0,0,0.12);
 }
+
 .table {
   width: 100%;
   border-collapse: separate;
@@ -131,6 +143,7 @@ tr:hover .td {
   background: #2563eb;
   transform: translateY(-1px) scale(1.04);
 }
+
 .emptyRow {
   text-align: center;
   color: #94a3b8;
@@ -140,11 +153,12 @@ tr:hover .td {
   font-style: italic;
   border-radius: 8px;
 }
+
 @media (max-width: 700px) {
-  .mainContent { padding: 1.2rem 0.2rem; }
-  .container { padding: 0 0.2rem; }
+  .mainContent { padding: 1.2rem; }
+  .container { padding: 0; }
   .card { padding: 1rem 0.2rem; }
   .title { font-size: 1.3rem; }
   .addBtn { font-size: 0.95rem; padding: 0.5rem 1rem; }
-  .infoText { font-size: 0.98rem; padding: 0.7rem 0.7rem; }
-} 
+  .infoText { font-size: 0.98rem; padding: 0.7rem; }
+}

@@ -8,16 +8,11 @@
 /* Main Content */
 .main-content {
   flex: 1;
-  margin-left: 100px;
-  padding: 24px 0 24px 0;
+  margin-left: 200px; /* Match sidebar width */
+  /* padding: 24px 0 24px 0; */
   transition: margin-left 0.3s ease;
   min-height: 100vh;
   box-sizing: border-box;
-}
-
-/* When sidebar is collapsed */
-.main-content.sidebar-collapsed {
-  margin-left: 60px;
 }
 
 /* Responsive design */
@@ -25,9 +20,5 @@
   .main-content {
     margin-left: 60px;
     padding: 16px 0;
-  }
-
-  .main-content.sidebar-collapsed {
-    margin-left: 60px;
   }
 }

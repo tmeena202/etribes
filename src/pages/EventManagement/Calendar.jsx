@@ -86,7 +86,6 @@ const CalendarPage = () => {
           <div className="live-time">{time.toLocaleString()}</div>
         </div>
         <div className="calendar-main-content">
-    
           {/* Calendar */}
           <div className="calendar-glass-card">
             <Calendar
@@ -116,21 +115,17 @@ const CalendarPage = () => {
               ))
             )}
           </div>
-
-
-           {/* Legend */}
-          <div className="calendar-legend-card">
-            <h3>Legend</h3>
-            <div className="legend-item"><span className="legend-dot past"></span> Past</div>
-            <div className="legend-item"><span className="legend-dot upcoming"></span> Upcoming</div>
-            <div className="legend-item"><span className="legend-dot today-event"></span> Today’s Event</div>
-            <div className="legend-item"><span className="legend-dot today-gold"></span> Today</div>
-          </div>
-
         </div>
-  </div>
+        {/* Legend at the bottom as inline row */}
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 24, margin: '32px 0 0 0', width: '100%' }}>
+          <span className="legend-item"><span className="legend-dot past"></span> Past</span>
+          <span className="legend-item"><span className="legend-dot upcoming"></span> Upcoming</span>
+          <span className="legend-item"><span className="legend-dot today-event"></span> Today’s Event</span>
+          <span className="legend-item"><span className="legend-dot today-gold"></span> Today</span>
+        </div>
+      </div>
     </>
-);
+  );
 };
 
 export default CalendarPage;

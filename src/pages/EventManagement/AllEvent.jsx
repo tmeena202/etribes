@@ -4,7 +4,6 @@ import styles from "./AllEvent.module.css";
 import { FaCalendarAlt, FaPlus, FaInfoCircle, FaEye } from "react-icons/fa";
 
 const AllEvent = () => {
-  // Hardcoded sample events for demonstration
   const [events, setEvents] = useState([
     {
       id: 1,
@@ -56,6 +55,7 @@ const AllEvent = () => {
       datetime: "2025-11-05T14:35"
     }
   ]);
+
   const [showModal, setShowModal] = useState(false);
   const [form, setForm] = useState({
     event: "",
@@ -70,16 +70,13 @@ const AllEvent = () => {
 
   const handleAddEvent = (e) => {
     e.preventDefault();
-    setEvents([
-      ...events,
-      { ...form, id: events.length + 1 }
-    ]);
+    setEvents([...events, { ...form, id: events.length + 1 }]);
     setForm({ event: "", agenda: "", venue: "", datetime: "" });
     setShowModal(false);
   };
 
   return (
-    <div className={`main-content ${styles.mainContent}`}>
+    <div className={styles.mainContent}>
       <div className={styles.container}>
         <div className={styles.headerRow}>
           <h2 className={styles.title}>
@@ -93,10 +90,12 @@ const AllEvent = () => {
             <FaPlus /> Add Event
           </button>
         </div>
+
         <div className={styles.infoText}>
           <FaInfoCircle style={{ fontSize: "1.2em" }} />
-          Here you can view, add, and manage all events—past, present, and future. Stay organized and keep track of everything in one place!
+          Here you can view, add, and manage all events—past, present, and future.
         </div>
+
         <div className={styles.card}>
           <table className={styles.table}>
             <thead className={styles.thead}>
@@ -112,7 +111,9 @@ const AllEvent = () => {
             <tbody>
               {events.length === 0 ? (
                 <tr>
-                  <td colSpan="6" className={styles.emptyRow}>No data available in table</td>
+                  <td colSpan="6" className={styles.emptyRow}>
+                    No data available in table
+                  </td>
                 </tr>
               ) : (
                 events.map((ev, idx) => (
@@ -121,9 +122,13 @@ const AllEvent = () => {
                     <td className={styles.td}>{ev.event}</td>
                     <td className={styles.td}>{ev.agenda}</td>
                     <td className={styles.td}>{ev.venue}</td>
-                    <td className={styles.td}>{ev.datetime && new Date(ev.datetime).toLocaleString()}</td>
                     <td className={styles.td}>
-                      <button className={styles.viewBtn}><FaEye /></button>
+                      {ev.datetime && new Date(ev.datetime).toLocaleString()}
+                    </td>
+                    <td className={styles.td}>
+                      <button className={styles.viewBtn}>
+                        <FaEye />
+                      </button>
                     </td>
                   </tr>
                 ))
@@ -131,16 +136,17 @@ const AllEvent = () => {
             </tbody>
           </table>
         </div>
+
+        <AddEventForm
+          open={showModal}
+          form={form}
+          onChange={handleChange}
+          onSubmit={handleAddEvent}
+          onClose={() => setShowModal(false)}
+        />
       </div>
-      <AddEventForm
-        open={showModal}
-        form={form}
-        onChange={handleChange}
-        onSubmit={handleAddEvent}
-        onClose={() => setShowModal(false)}
-      />
     </div>
   );
 };
 
-export default AllEvent; 
+export default AllEvent;

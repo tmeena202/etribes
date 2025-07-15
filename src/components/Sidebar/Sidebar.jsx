@@ -17,24 +17,14 @@ import {
 } from "react-icons/fi";
 
 const Sidebar = ({ onToggle }) => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  // Remove isCollapsed and toggleSidebar logic
   const [eventDropdownOpen, setEventDropdownOpen] = useState(false);
 
-  const toggleSidebar = () => {
-    const newCollapsedState = !isCollapsed;
-    setIsCollapsed(newCollapsedState);
-    if (onToggle) {
-      onToggle(newCollapsedState);
-    }
-  };
-
   return (
-    <aside className={`sidebar ${isCollapsed ? "collapsed" : ""}`}>
+    <aside className="sidebar">
       <div className="sidebar-header">
-        <div className="logo">{!isCollapsed && "E-Tribes"}</div>
-        <button className="toggle-btn" onClick={toggleSidebar}>
-          {isCollapsed ? <FiChevronRight /> : <FiChevronLeft />}
-        </button>
+        <div className="logo">E-Tribes</div>
+        {/* Remove toggle button */}
       </div>
 
       <nav className="menu">
@@ -45,7 +35,7 @@ const Sidebar = ({ onToggle }) => {
               className={({ isActive }) => (isActive ? "active" : "")}
             >
               <FiHome />
-              {!isCollapsed && <span>Dashboard</span>}
+              <span>Dashboard</span>
             </NavLink>
           </li>
           <li>
@@ -54,7 +44,7 @@ const Sidebar = ({ onToggle }) => {
               className={({ isActive }) => (isActive ? "active" : "")}
             >
               <FiUser />
-              {!isCollapsed && <span>New Registration</span>}
+              <span>New Registration</span>
             </NavLink>
           </li>
           {/* Event Management Dropdown */}
@@ -65,10 +55,10 @@ const Sidebar = ({ onToggle }) => {
               onClick={() => setEventDropdownOpen((open) => !open)}
             >
               <FiCalendar />
-              {!isCollapsed && <span>Event Management</span>}
-              {!isCollapsed && (eventDropdownOpen ? <FiChevronUp /> : <FiChevronDown />)}
+              <span>Event Management</span>
+              {eventDropdownOpen ? <FiChevronUp /> : <FiChevronDown />}
             </div>
-            {!isCollapsed && eventDropdownOpen && (
+            {eventDropdownOpen && (
               <ul className="sidebar-dropdown" style={{ listStyle: 'none', paddingLeft: 32, marginTop: 4 }}>
                 <li>
                   <NavLink to="/events/calendar" className={({ isActive }) => (isActive ? "active" : "")}>Calendar</NavLink>
@@ -94,7 +84,7 @@ const Sidebar = ({ onToggle }) => {
               className={({ isActive }) => (isActive ? "active" : "")}
             >
               <FiLogOut />
-              {!isCollapsed && <span>Logout</span>}
+              <span>Logout</span>
             </NavLink>
           </li>
         </ul>
@@ -106,14 +96,12 @@ const Sidebar = ({ onToggle }) => {
           alt="User avatar"
           className="avatar"
         />
-        {!isCollapsed && (
-          <div className="user-info" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span className="name" style={{ fontWeight: 600, fontSize: 15, color: '#fff' }}>Fandawu Punx</span>
-            <button className="user-settings-btn" style={{ background: 'none', border: 'none', color: '#b6e2d3', cursor: 'pointer', padding: 0, marginLeft: 4, fontSize: 18 }}>
-              <FiSettings />
-            </button>
-          </div>
-        )}
+        <div className="user-info" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span className="name" style={{ fontWeight: 600, fontSize: 15, color: '#fff' }}>Fandawu Punx</span>
+          <button className="user-settings-btn" style={{ background: 'none', border: 'none', color: '#b6e2d3', cursor: 'pointer', padding: 0, marginLeft: 4, fontSize: 18 }}>
+            <FiSettings />
+          </button>
+        </div>
       </div>
     </aside>
   );
