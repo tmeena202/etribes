@@ -84,56 +84,56 @@ const AdminAccounts = () => {
   };
 
   return (
-    <div className="contacts-container" style={{ padding: 32, maxWidth: 1200, margin: '0 auto' }}>
-      <div className="contacts-header-row" style={{ marginBottom: 8 }}>
+    <div className="contacts-container" style={{ padding: 24, maxWidth: '100vw', margin: '0 auto', fontFamily: 'Inter, Segoe UI, Arial, sans-serif', background: '#f6f8fa', minHeight: '100vh', overflowX: 'auto' }}>
+      <div className="contacts-header-row" style={{ marginBottom: 18, alignItems: 'flex-end' }}>
         <div>
-          <h2 style={{ fontSize: '2rem', fontWeight: 700, margin: 0, color: '#1a4d3a' }}>System Users</h2>
-          <div style={{ color: '#64748b', fontSize: 16, marginTop: 4 }}>Manage system users. Add, filter, and view user details.</div>
+          <h2 style={{ fontSize: '2.2rem', fontWeight: 700, margin: 0, color: '#1a4d3a', letterSpacing: 0.5 }}>System Users</h2>
+          <div style={{ color: '#7bb86f', fontSize: 18, marginTop: 6, fontWeight: 500 }}>Manage system users. Add, filter, and view user details.</div>
         </div>
-        <button className="add-contact-btn" style={{ background: '#2563eb', color: '#fff', fontWeight: 600 }} onClick={() => setShowModal(true)}>
+        <button className="add-contact-btn" style={{ background: 'linear-gradient(90deg, #7bb86f 0%, #43c97f 100%)', color: '#fff', fontWeight: 700, fontSize: 17, boxShadow: '0 2px 8px rgba(67,201,127,0.10)', border: 'none', padding: '12px 28px', borderRadius: 10 }} onClick={() => setShowModal(true)}>
           <FiPlus className="add-icon" /> Add System User
         </button>
       </div>
-      <div className="contacts-table-card" style={{ borderRadius: 16, boxShadow: '0 4px 24px rgba(37,99,235,0.07)' }}>
-        <div className="contacts-table-toolbar" style={{ marginBottom: 18 }}>
-          <div className="contacts-filter" style={{ flex: 1 }}>
-            <FiSearch style={{ color: '#64748b', fontSize: 18, marginRight: 8 }} />
+      <div className="contacts-table-card" style={{ borderRadius: 18, boxShadow: '0 6px 32px rgba(67,201,127,0.08)', background: '#fff', padding: 0, overflow: 'auto', minWidth: 900 }}>
+        <div className="contacts-table-toolbar" style={{ marginBottom: 0, padding: '24px 16px 0 16px', display: 'flex', alignItems: 'center', gap: 18 }}>
+          <div className="contacts-filter" style={{ flex: 1, display: 'flex', alignItems: 'center', background: '#f6f8fa', borderRadius: 8, padding: '8px 16px', border: '1.5px solid #e2e8f0' }}>
+            <FiSearch style={{ color: '#7bb86f', fontSize: 20, marginRight: 10 }} />
             <input
               type="text"
               placeholder="Type to filter..."
               value={filter}
               onChange={e => setFilter(e.target.value)}
-              style={{ minWidth: 220 }}
+              style={{ minWidth: 220, border: 'none', outline: 'none', background: 'transparent', fontSize: 17, color: '#1a4d3a' }}
             />
           </div>
-          <div className="contacts-export-group">
-            <label>Show:</label>
-            <select value={showCount} onChange={e => setShowCount(Number(e.target.value))}>
+          <div className="contacts-export-group" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <label style={{ color: '#64748b', fontWeight: 500 }}>Show:</label>
+            <select value={showCount} onChange={e => setShowCount(Number(e.target.value))} style={{ borderRadius: 6, border: '1px solid #e2e8f0', padding: '6px 12px', fontSize: 16, background: '#f8fafc', color: '#1a4d3a' }}>
               <option>25</option>
               <option>50</option>
               <option>100</option>
             </select>
-            <button className="export-btn">Copy</button>
-            <button className="export-btn">Excel</button>
-            <button className="export-btn">CSV</button>
-            <button className="export-btn">PDF</button>
+            <button className="export-btn" style={{ background: '#f6f8fa', color: '#7bb86f', border: '1px solid #e2e8f0', borderRadius: 6, fontWeight: 600 }}>Copy</button>
+            <button className="export-btn" style={{ background: '#f6f8fa', color: '#7bb86f', border: '1px solid #e2e8f0', borderRadius: 6, fontWeight: 600 }}>Excel</button>
+            <button className="export-btn" style={{ background: '#f6f8fa', color: '#7bb86f', border: '1px solid #e2e8f0', borderRadius: 6, fontWeight: 600 }}>CSV</button>
+            <button className="export-btn" style={{ background: '#f6f8fa', color: '#7bb86f', border: '1px solid #e2e8f0', borderRadius: 6, fontWeight: 600 }}>PDF</button>
           </div>
         </div>
-        <div className="contacts-table-wrapper">
-          <table className="contacts-table" style={{ borderRadius: 12, overflow: 'hidden' }}>
+        <div className="contacts-table-wrapper" style={{ padding: '0 8px 24px 8px', overflowX: 'auto' }}>
+          <table className="contacts-table" style={{ borderRadius: 14, overflow: 'hidden', fontSize: 16, marginTop: 24, width: '100%', borderCollapse: 'separate', borderSpacing: 0, minWidth: 1000, boxShadow: '0 2px 12px rgba(67,201,127,0.07)' }}>
             <thead>
-              <tr>
-                <th>SN</th>
-                <th>User Role</th>
-                <th>Name</th>
-                <th>Contact No.</th>
-                <th>Email Address</th>
-                <th>Address</th>
-                <th>City</th>
-                <th>District</th>
-                <th>State</th>
-                <th>Country</th>
-                <th style={{ textAlign: 'center' }}>Action</th>
+              <tr style={{ background: '#1a4d3a', color: '#fff', fontWeight: 700, fontSize: 17, position: 'sticky', top: 0, zIndex: 2 }}>
+                <th style={{ padding: '14px 10px', borderRight: '1px solid #e2e8f0' }}>SN</th>
+                <th style={{ padding: '14px 10px', borderRight: '1px solid #e2e8f0' }}>User Role</th>
+                <th style={{ padding: '14px 10px', borderRight: '1px solid #e2e8f0' }}>Name</th>
+                <th style={{ padding: '14px 10px', borderRight: '1px solid #e2e8f0' }}>Contact No.</th>
+                <th style={{ padding: '14px 10px', borderRight: '1px solid #e2e8f0' }}>Email Address</th>
+                <th style={{ padding: '14px 10px', borderRight: '1px solid #e2e8f0' }}>Address</th>
+                <th style={{ padding: '14px 10px', borderRight: '1px solid #e2e8f0' }}>City</th>
+                <th style={{ padding: '14px 10px', borderRight: '1px solid #e2e8f0' }}>District</th>
+                <th style={{ padding: '14px 10px', borderRight: '1px solid #e2e8f0' }}>State</th>
+                <th style={{ padding: '14px 10px', borderRight: '1px solid #e2e8f0' }}>Country</th>
+                <th style={{ padding: '14px 10px', textAlign: 'center' }}>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -145,19 +145,22 @@ const AdminAccounts = () => {
                 </tr>
               ) : (
                 filteredUsers.slice(0, showCount).map((user, idx) => (
-                  <tr key={user.id} style={{ background: idx % 2 === 1 ? '#f8fafc' : '#fff', transition: 'background 0.2s' }}>
-                    <td>{idx + 1}</td>
-                    <td>{user.role}</td>
-                    <td>{user.name}</td>
-                    <td>{user.contact}</td>
-                    <td>{user.email}</td>
-                    <td>{user.address}</td>
-                    <td>{user.city}</td>
-                    <td>{user.district}</td>
-                    <td>{user.state}</td>
-                    <td>{user.country}</td>
-                    <td style={{ textAlign: 'center' }}>
-                      <button className="action-btn edit" title="View" style={{ background: '#e0e7ef', color: '#2563eb', borderRadius: 6, fontSize: 18, padding: 6 }}>
+                  <tr key={user.id} style={{ background: idx % 2 === 1 ? '#f6f8fa' : '#fff', transition: 'background 0.2s', borderBottom: '1.5px solid #e2e8f0', cursor: 'pointer' }}
+                    onMouseOver={e => e.currentTarget.style.background = '#e6f4ef'}
+                    onMouseOut={e => e.currentTarget.style.background = idx % 2 === 1 ? '#f6f8fa' : '#fff'}
+                  >
+                    <td style={{ padding: '12px 10px', borderRight: '1px solid #f1f5f9' }}>{idx + 1}</td>
+                    <td style={{ padding: '12px 10px', borderRight: '1px solid #f1f5f9' }}>{user.role}</td>
+                    <td style={{ padding: '12px 10px', borderRight: '1px solid #f1f5f9' }}>{user.name}</td>
+                    <td style={{ padding: '12px 10px', borderRight: '1px solid #f1f5f9' }}>{user.contact}</td>
+                    <td style={{ padding: '12px 10px', borderRight: '1px solid #f1f5f9' }}>{user.email}</td>
+                    <td style={{ padding: '12px 10px', borderRight: '1px solid #f1f5f9' }}>{user.address}</td>
+                    <td style={{ padding: '12px 10px', borderRight: '1px solid #f1f5f9' }}>{user.city}</td>
+                    <td style={{ padding: '12px 10px', borderRight: '1px solid #f1f5f9' }}>{user.district}</td>
+                    <td style={{ padding: '12px 10px', borderRight: '1px solid #f1f5f9' }}>{user.state}</td>
+                    <td style={{ padding: '12px 10px', borderRight: '1px solid #f1f5f9' }}>{user.country}</td>
+                    <td style={{ padding: '12px 10px', textAlign: 'center' }}>
+                      <button className="action-btn edit" title="View" style={{ background: '#e8f7ef', color: '#43c97f', borderRadius: 8, fontSize: 18, padding: 8, border: 'none', boxShadow: '0 1px 4px rgba(67,201,127,0.07)' }}>
                         <FiEye />
                       </button>
                     </td>

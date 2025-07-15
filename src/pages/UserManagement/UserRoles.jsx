@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FiEdit2, FiPlus, FiX, FiTrash2 } from 'react-icons/fi';
+import { FiEdit2, FiPlus, FiX, FiTrash2, FiSearch } from 'react-icons/fi';
 import '../../components/Dashboard/ImportantContacts.css';
 
 const initialRoles = [
@@ -39,44 +39,45 @@ const UserRoles = () => {
   };
 
   return (
-    <div className="contacts-container" style={{ padding: 32, maxWidth: 900, margin: '0 auto' }}>
-      <div className="contacts-header-row" style={{ marginBottom: 8 }}>
+    <div className="contacts-container" style={{ padding: 40, maxWidth: 900, margin: '0 auto', fontFamily: 'Inter, Segoe UI, Arial, sans-serif', background: '#f6f8fa', minHeight: '100vh' }}>
+      <div className="contacts-header-row" style={{ marginBottom: 18, alignItems: 'flex-end' }}>
         <div>
-          <h2 style={{ fontSize: '2rem', fontWeight: 700, margin: 0, color: '#1a4d3a' }}>User Roles</h2>
-          <div style={{ color: '#64748b', fontSize: 16, marginTop: 4 }}>Manage user roles for your organization. Add, filter, edit, or delete roles as needed.</div>
+          <h2 style={{ fontSize: '2.2rem', fontWeight: 700, margin: 0, color: '#1a4d3a', letterSpacing: 0.5 }}>User Roles</h2>
+          <div style={{ color: '#7bb86f', fontSize: 18, marginTop: 6, fontWeight: 500 }}>Manage user roles for your organization. Add, filter, edit, or delete roles as needed.</div>
         </div>
-        <button className="add-contact-btn" style={{ background: '#2563eb', color: '#fff', fontWeight: 600 }} onClick={() => setShowModal(true)}>
+        <button className="add-contact-btn" style={{ background: 'linear-gradient(90deg, #7bb86f 0%, #43c97f 100%)', color: '#fff', fontWeight: 700, fontSize: 17, boxShadow: '0 2px 8px rgba(67,201,127,0.10)', border: 'none', padding: '12px 28px', borderRadius: 10 }} onClick={() => setShowModal(true)}>
           <FiPlus className="add-icon" /> Add Role
         </button>
       </div>
-      <div className="contacts-table-card" style={{ borderRadius: 16, boxShadow: '0 4px 24px rgba(37,99,235,0.07)' }}>
-        <div className="contacts-table-toolbar" style={{ marginBottom: 18 }}>
-          <div className="contacts-filter">
+      <div className="contacts-table-card" style={{ borderRadius: 18, boxShadow: '0 6px 32px rgba(67,201,127,0.08)', background: '#fff', padding: 0, overflow: 'hidden' }}>
+        <div className="contacts-table-toolbar" style={{ marginBottom: 0, padding: '24px 32px 0 32px', display: 'flex', alignItems: 'center', gap: 18 }}>
+          <div className="contacts-filter" style={{ flex: 1, display: 'flex', alignItems: 'center', background: '#f6f8fa', borderRadius: 8, padding: '8px 16px', border: '1.5px solid #e2e8f0' }}>
+            <FiSearch style={{ color: '#7bb86f', fontSize: 20, marginRight: 10 }} />
             <input
               type="text"
               placeholder="Type to filter..."
               value={filter}
               onChange={e => setFilter(e.target.value)}
-              style={{ minWidth: 220 }}
+              style={{ minWidth: 220, border: 'none', outline: 'none', background: 'transparent', fontSize: 17, color: '#1a4d3a' }}
             />
           </div>
-          <div className="contacts-export-group">
-            <label>Show:</label>
-            <select>
+          <div className="contacts-export-group" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <label style={{ color: '#64748b', fontWeight: 500 }}>Show:</label>
+            <select style={{ borderRadius: 6, border: '1px solid #e2e8f0', padding: '6px 12px', fontSize: 16, background: '#f8fafc', color: '#1a4d3a' }}>
               <option>25</option>
               <option>50</option>
               <option>100</option>
             </select>
-            <button className="export-btn">Copy</button>
-            <button className="export-btn">Excel</button>
-            <button className="export-btn">CSV</button>
-            <button className="export-btn">PDF</button>
+            <button className="export-btn" style={{ background: '#f6f8fa', color: '#7bb86f', border: '1px solid #e2e8f0', borderRadius: 6, fontWeight: 600 }}>Copy</button>
+            <button className="export-btn" style={{ background: '#f6f8fa', color: '#7bb86f', border: '1px solid #e2e8f0', borderRadius: 6, fontWeight: 600 }}>Excel</button>
+            <button className="export-btn" style={{ background: '#f6f8fa', color: '#7bb86f', border: '1px solid #e2e8f0', borderRadius: 6, fontWeight: 600 }}>CSV</button>
+            <button className="export-btn" style={{ background: '#f6f8fa', color: '#7bb86f', border: '1px solid #e2e8f0', borderRadius: 6, fontWeight: 600 }}>PDF</button>
           </div>
         </div>
-        <div className="contacts-table-wrapper">
-          <table className="contacts-table" style={{ borderRadius: 12, overflow: 'hidden' }}>
+        <div className="contacts-table-wrapper" style={{ padding: '0 32px 32px 32px' }}>
+          <table className="contacts-table" style={{ borderRadius: 14, overflow: 'hidden', fontSize: 16, marginTop: 24 }}>
             <thead>
-              <tr>
+              <tr style={{ background: '#f6f8fa', color: '#1a4d3a', fontWeight: 700, fontSize: 17 }}>
                 <th style={{ width: 60 }}>SN</th>
                 <th>Role</th>
                 <th style={{ textAlign: 'center', width: 140 }}>Action</th>
@@ -91,14 +92,14 @@ const UserRoles = () => {
                 </tr>
               ) : (
                 filteredRoles.map((role, idx) => (
-                  <tr key={role.id} style={{ background: idx % 2 === 1 ? '#f8fafc' : '#fff', transition: 'background 0.2s' }}>
+                  <tr key={role.id} style={{ background: idx % 2 === 1 ? '#f8fafc' : '#fff', transition: 'background 0.2s', borderBottom: '1.5px solid #f1f5f9' }}>
                     <td>{idx + 1}</td>
                     <td style={{ fontWeight: 500 }}>{role.role}</td>
                     <td style={{ textAlign: 'center' }}>
-                      <button className="action-btn edit" title="Edit" style={{ background: '#e0e7ef', color: '#2563eb', borderRadius: 6, fontSize: 18, padding: 6, marginRight: 8 }}>
+                      <button className="action-btn edit" title="Edit" style={{ background: '#e8f7ef', color: '#43c97f', borderRadius: 8, fontSize: 18, padding: 8, border: 'none', marginRight: 8, boxShadow: '0 1px 4px rgba(67,201,127,0.07)' }}>
                         <FiEdit2 />
                       </button>
-                      <button className="action-btn delete" title="Delete" style={{ background: '#fef2f2', color: '#ef4444', borderRadius: 6, fontSize: 18, padding: 6 }} onClick={() => setDeleteId(role.id)}>
+                      <button className="action-btn delete" title="Delete" style={{ background: '#fef2f2', color: '#ef4444', borderRadius: 8, fontSize: 18, padding: 8, border: 'none', boxShadow: '0 1px 4px rgba(239,68,68,0.07)' }} onClick={() => setDeleteId(role.id)}>
                         <FiTrash2 />
                       </button>
                     </td>

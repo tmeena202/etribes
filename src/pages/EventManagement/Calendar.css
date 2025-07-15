@@ -78,6 +78,15 @@
   gap: 2rem;
   flex-wrap: wrap;
   justify-content: space-between;
+  min-height: 400px;
+  height: 500px;
+}
+
+.calendar-glass-card,
+.event-details-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Compact calendar layout */
@@ -106,7 +115,8 @@
   padding: 0.4rem;
   border: 1px solid var(--border-color);
   box-shadow: 0 0 10px rgba(0,0,0,0.05);
-  max-height: 220px;
+  /* Remove max-height so it can match calendar height */
+  max-height: none;
   overflow-y: auto;
 }
 

@@ -15,18 +15,10 @@ import AdminAccounts from "./pages/UserManagement/AdminAccounts";
 import "./App.css";
 
 function App() {
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-
-  const handleSidebarToggle = (collapsed) => {
-    setIsSidebarCollapsed(collapsed);
-  };
-
   return (
     <div className="app-container">
-      <Sidebar onToggle={handleSidebarToggle} />
-      <div 
-        className={`main-content ${isSidebarCollapsed ? 'sidebar-collapsed' : ''}`}
-      >
+      <Sidebar />
+      <div className="main-content">
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/register" element={<NewRegistration />} />
