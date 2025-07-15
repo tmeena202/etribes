@@ -218,67 +218,52 @@ const CalendarPage = () => {
           <span className="calendar-header-date">{time.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
           <span className="calendar-header-time"><span role="img" aria-label="clock">⏰</span> {time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}</span>
         </div>
-      </div>
-
-      <div className="calendar-main-content compact-calendar">
-        {/* Calendar */}
-        <div className="calendar-glass-card">
-          <Calendar
-            localizer={localizer}
-            events={bigCalendarEvents}
-            startAccessor="start"
-            endAccessor="end"
-            views={["month"]}
-            defaultView="month"
-            style={{ height: 320 }}
-            onSelectEvent={(event) => setSelectedDate(event.start)}
-            onSelectSlot={({ start }) => setSelectedDate(start)}
-            selectable
-            popup
-            components={{
-              event: ({ event }) => (
-                <span className={`event-label ${event.resource.type}`}>
-                  {event.title}
-                </span>
-              ),
-              dateCellWrapper: (props) => <CustomDateCell {...props} />
-            }}
-          />
-          <div className="calendar-selected-date">
-            📅 <strong>Selected:</strong> {selectedDate.toDateString()}
-          </div>
-          {/* Legend directly below calendar */}
-          <div className="calendar-legend-card legend-inline">
-            <span className="legend-item legend-pill" title="Days with past events"><span className="legend-dot past"></span> Past</span>
-            <span className="legend-item legend-pill" title="Days with upcoming events"><span className="legend-dot upcoming"></span> Upcoming</span>
-            <span className="legend-item legend-pill" title="Days with today's events"><span className="legend-dot today"></span> Today’s Event</span>
-          </div>
-        </div>
-
-        {/* Events */}
-        <div className="event-details-card">
-          <h2>Event Details</h2>
-          <button className="create-event-btn" aria-label="Create Event">+ Create Event</button>
-          {eventsForDate.length === 0 ? (
-            <div className="no-events">
-              <span role="img" aria-label="No events" style={{ fontSize: 32, display: 'block', marginBottom: 8 }}>📭</span>
-              No events for this day!
+        <div className="calendar-main-content">
+    
+          {/* Calendar */}
+          <div className="calendar-glass-card">
+            <Calendar
+              onChange={setDate}
+              value={date}
+              tileClassName={tileClassName}
+            />
+            <div className="calendar-selected-date">
+              📅 <strong>Selected:</strong> {date.toDateString()}
             </div>
-          ) : (
-            eventsForDate.map((ev, idx) => (
-              <div className="event-item" key={idx}>
-                <div className="event-title">{ev.name}</div>
-                <div className="event-meta">{ev.date.toDateString()}</div>
-                <div className="event-desc">{ev.description}</div>
-                <div className="event-attendees">👥 {ev.attendees} Attendees</div>
-                <div className="event-meta">Type: {ev.type}</div>
-              </div>
-            ))
-          )}
+          </div>
+
+          {/* Events */}
+          <div className="event-details-card">
+            <h2>Event Details</h2>
+            {eventsForDate.length === 0 ? (
+              <div className="no-events">No events for this date.</div>
+            ) : (
+              eventsForDate.map((ev, idx) => (
+                <div className="event-item" key={idx}>
+                  <div className="event-title">{ev.name}</div>
+                  <div className="event-meta">{ev.date.toDateString()}</div>
+                  <div className="event-desc">{ev.description}</div>
+                  <div className="event-attendees">👥 {ev.attendees} Attendees</div>
+                  <div className="event-meta">Type: {ev.type}</div>
+                </div>
+              ))
+            )}
+          </div>
+
+
+           {/* Legend */}
+          <div className="calendar-legend-card">
+            <h3>Legend</h3>
+            <div className="legend-item"><span className="legend-dot past"></span> Past</div>
+            <div className="legend-item"><span className="legend-dot upcoming"></span> Upcoming</div>
+            <div className="legend-item"><span className="legend-dot today-event"></span> Today’s Event</div>
+            <div className="legend-item"><span className="legend-dot today-gold"></span> Today</div>
+          </div>
+
         </div>
-      </div>
-    </div>
-  );
+  </div>
+    </>
+);
 };
 
 export default CalendarPage;

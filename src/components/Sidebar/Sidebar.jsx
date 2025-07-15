@@ -42,23 +42,23 @@ const Sidebar = () => {
               <FiCalendar />
               <span>Event Management</span>
             </div>
-            <ul className="sidebar-dropdown" style={{ listStyle: 'none', paddingLeft: 32, marginTop: 4 }}>
-              <li>
-                <NavLink to="/events/calendar" className={({ isActive }) => (isActive ? "active" : "")}>Calendar</NavLink>
-              </li>
-              <li>
-                <NavLink to="/events/today" className={({ isActive }) => (isActive ? "active" : "")}>Today's Events</NavLink>
-              </li>
-              <li>
-                <NavLink to="/events/upcoming" className={({ isActive }) => (isActive ? "active" : "")}>Upcoming Event</NavLink>
-              </li>
-              <li>
-                <NavLink to="/events/past" className={({ isActive }) => (isActive ? "active" : "")}>Past Event</NavLink>
-              </li>
-              <li>
-                <NavLink to="/events/all" className={({ isActive }) => (isActive ? "active" : "")}>All Event</NavLink>
-              </li>
-            </ul>
+              <ul className="sidebar-dropdown" style={{ listStyle: 'none', paddingLeft: 32, marginTop: 4 }}>
+                <li>
+                  <NavLink to="/events/calendar" className={({ isActive }) => (isActive ? "active" : "")}>Calendar</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/events/today" className={({ isActive }) => (isActive ? "active" : "")}>Today's Events</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/events/upcoming" className={({ isActive }) => (isActive ? "active" : "")}>Upcoming Event</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/events/past" className={({ isActive }) => (isActive ? "active" : "")}>Past Event</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/events/all" className={({ isActive }) => (isActive ? "active" : "")}>All Event</NavLink>
+                </li>
+              </ul>
           </li>
           <li>
             <NavLink
@@ -77,12 +77,12 @@ const Sidebar = () => {
           alt="User avatar"
           className="avatar"
         />
-        <div className="user-info" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span className="name" style={{ fontWeight: 600, fontSize: 15, color: '#fff' }}>Fandawu Punx</span>
-          <button className="user-settings-btn" style={{ background: 'none', border: 'none', color: '#b6e2d3', cursor: 'pointer', padding: 0, marginLeft: 4, fontSize: 18 }}>
-            <FiSettings />
-          </button>
-        </div>
+          <div className="user-info" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <span className="name" style={{ fontWeight: 600, fontSize: 15, color: '#fff' }}>Fandawu Punx</span>
+            <button className="user-settings-btn" style={{ background: 'none', border: 'none', color: '#b6e2d3', cursor: 'pointer', padding: 0, marginLeft: 4, fontSize: 18 }}>
+              <FiSettings />
+            </button>
+          </div>
       </div>
     </aside>
   );
