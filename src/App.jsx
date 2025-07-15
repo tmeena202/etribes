@@ -10,6 +10,8 @@ import UpcomingEvent from "./pages/EventManagement/UpcomingEvent";
 import PastEvent from "./pages/EventManagement/PastEvent";
 import AllEvent from "./pages/EventManagement/AllEvent";
 import EventManagement from "./pages/EventManagement/EventManagement";
+import UserRoles from "./pages/UserManagement/UserRoles";
+import AdminAccounts from "./pages/UserManagement/AdminAccounts";
 import "./App.css";
 
 function App() {
@@ -35,6 +37,8 @@ function App() {
           <Route path="/events/past" element={<PastEvent />} />
           <Route path="/events/all" element={<AllEvent />} />
           <Route path="/events" element={<EventManagement />} />
+          <Route path="/user-management/roles" element={<UserRoles />} />
+          <Route path="/user-management/admin-accounts" element={<AdminAccounts />} />
         </Routes>
       </div>
     </div>

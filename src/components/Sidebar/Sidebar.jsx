@@ -60,6 +60,21 @@ const Sidebar = () => {
                 </li>
               </ul>
           </li>
+          {/* User Management Dropdown (always open) */}
+          <li>
+            <div className="sidebar-dropdown-toggle" style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px', borderRadius: 8 }}>
+              <FiUser />
+              <span>User Management</span>
+            </div>
+            <ul className="sidebar-dropdown" style={{ listStyle: 'none', paddingLeft: 32, marginTop: 4 }}>
+              <li>
+                <NavLink to="/user-management/admin-accounts" className={({ isActive }) => (isActive ? "active" : "")}>Admin Accounts</NavLink>
+              </li>
+              <li>
+                <NavLink to="/user-management/roles" className={({ isActive }) => (isActive ? "active" : "")}>User Roles</NavLink>
+              </li>
+            </ul>
+          </li>
           <li>
             <NavLink
               to="/logout"
