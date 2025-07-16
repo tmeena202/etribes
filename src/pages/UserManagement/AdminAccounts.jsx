@@ -1,15 +1,8 @@
+// AdminAccounts.jsx
 import React, { useState } from 'react';
 import { FiPlus, FiSearch, FiEye, FiX } from 'react-icons/fi';
-import '../../components/Dashboard/ImportantContacts.css';
 
-const userRoles = [
-  'Admin',
-  'Development',
-  'Finance',
-  'HR',
-  'Marketing',
-  'Member',
-];
+const userRoles = ['Admin', 'Development', 'Finance', 'HR', 'Marketing', 'Member'];
 
 const initialUsers = [
   { id: 1, name: 'Rohit Arya', contact: '7017064745', email: 'rohit@30days.in', address: 'Shiv Murti Gandhi Chowk Shamli', city: 'Shamli', district: 'Shamli', state: 'Uttar Pradesh', country: 'India', role: 'Admin' },
@@ -19,25 +12,15 @@ const initialUsers = [
 ];
 
 const initialForm = {
-  role: '',
-  name: '',
-  contact: '',
-  email: '',
-  password: '',
-  confirmPassword: '',
-  address: '',
-  city: '',
-  district: '',
-  state: '',
-  country: '',
-  pincode: '',
+  role: '', name: '', contact: '', email: '', password: '', confirmPassword: '',
+  address: '', city: '', district: '', state: '', country: '', pincode: '',
 };
 
 const AdminAccounts = () => {
   const [users, setUsers] = useState(initialUsers);
   const [showModal, setShowModal] = useState(false);
   const [filter, setFilter] = useState('');
-  const [showCount, setShowCount] = useState(100);
+  const [showCount, setShowCount] = useState(50);
   const [form, setForm] = useState(initialForm);
   const [formError, setFormError] = useState('');
 
@@ -53,7 +36,6 @@ const AdminAccounts = () => {
 
   const handleAddUser = (e) => {
     e.preventDefault();
-    // Validation
     if (!form.role || !form.name || !form.contact || !form.email || !form.password || !form.confirmPassword || !form.address || !form.city || !form.district || !form.state || !form.country) {
       setFormError('All fields except pincode are required.');
       return;
@@ -64,19 +46,7 @@ const AdminAccounts = () => {
     }
     setUsers([
       ...users,
-      {
-        id: users.length + 1,
-        name: form.name,
-        contact: form.contact,
-        email: form.email,
-        address: form.address,
-        city: form.city,
-        district: form.district,
-        state: form.state,
-        country: form.country,
-        role: form.role,
-        pincode: form.pincode,
-      },
+      { id: users.length + 1, ...form },
     ]);
     setShowModal(false);
     setForm(initialForm);
@@ -84,162 +54,147 @@ const AdminAccounts = () => {
   };
 
   return (
-    <div className="contacts-container" style={{ padding: 24, maxWidth: '100vw', margin: '0 auto', fontFamily: 'Inter, Segoe UI, Arial, sans-serif', background: '#f6f8fa', minHeight: '100vh', overflowX: 'auto' }}>
-      <div className="contacts-header-row" style={{ marginBottom: 18, alignItems: 'flex-end' }}>
+    <div style={{ padding: 24, background: '#f4f7fe', minHeight: '100vh', fontFamily: 'Inter, sans-serif' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 24 }}>
         <div>
-          <h2 style={{ fontSize: '2.2rem', fontWeight: 700, margin: 0, color: '#1a4d3a', letterSpacing: 0.5 }}>System Users</h2>
-          <div style={{ color: '#7bb86f', fontSize: 18, marginTop: 6, fontWeight: 500 }}>Manage system users. Add, filter, and view user details.</div>
+          <h2 style={{ color: '#1e3a8a', fontSize: 28, marginBottom: 4 }}>System Users</h2>
+          <p style={{ color: '#64748b', fontSize: 16 }}>Manage and view system user accounts</p>
         </div>
-        <button className="add-contact-btn" style={{ background: 'linear-gradient(90deg, #7bb86f 0%, #43c97f 100%)', color: '#fff', fontWeight: 700, fontSize: 17, boxShadow: '0 2px 8px rgba(67,201,127,0.10)', border: 'none', padding: '12px 28px', borderRadius: 10 }} onClick={() => setShowModal(true)}>
-          <FiPlus className="add-icon" /> Add System User
+        <button
+          onClick={() => setShowModal(true)}
+          style={{
+            background: '#10b981', color: '#fff', border: 'none', padding: '10px 20px',
+            borderRadius: 8, fontWeight: 600, fontSize: 16, display: 'flex', alignItems: 'center', gap: 8,
+            boxShadow: '0 2px 6px rgba(16,185,129,0.2)'
+          }}
+        >
+          <FiPlus /> Add User
         </button>
       </div>
-      <div className="contacts-table-card" style={{ borderRadius: 18, boxShadow: '0 6px 32px rgba(67,201,127,0.08)', background: '#fff', padding: 0, overflow: 'auto', minWidth: 900 }}>
-        <div className="contacts-table-toolbar" style={{ marginBottom: 0, padding: '24px 16px 0 16px', display: 'flex', alignItems: 'center', gap: 18 }}>
-          <div className="contacts-filter" style={{ flex: 1, display: 'flex', alignItems: 'center', background: '#f6f8fa', borderRadius: 8, padding: '8px 16px', border: '1.5px solid #e2e8f0' }}>
-            <FiSearch style={{ color: '#7bb86f', fontSize: 20, marginRight: 10 }} />
+
+      <div style={{ background: '#fff', borderRadius: 12, boxShadow: '0 4px 20px rgba(0,0,0,0.05)', padding: 16 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+          <div style={{
+            background: '#f1f5f9', padding: '6px 12px', borderRadius: 8,
+            display: 'flex', alignItems: 'center', gap: 8
+          }}>
+            <FiSearch style={{ color: '#3b82f6' }} />
             <input
               type="text"
-              placeholder="Type to filter..."
+              placeholder="Search user..."
               value={filter}
               onChange={e => setFilter(e.target.value)}
-              style={{ minWidth: 220, border: 'none', outline: 'none', background: 'transparent', fontSize: 17, color: '#1a4d3a' }}
+              style={{ border: 'none', background: 'transparent', outline: 'none', fontSize: 15 }}
             />
           </div>
-          <div className="contacts-export-group" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <label style={{ color: '#64748b', fontWeight: 500 }}>Show:</label>
-            <select value={showCount} onChange={e => setShowCount(Number(e.target.value))} style={{ borderRadius: 6, border: '1px solid #e2e8f0', padding: '6px 12px', fontSize: 16, background: '#f8fafc', color: '#1a4d3a' }}>
-              <option>25</option>
-              <option>50</option>
-              <option>100</option>
-            </select>
-            <button className="export-btn" style={{ background: '#f6f8fa', color: '#7bb86f', border: '1px solid #e2e8f0', borderRadius: 6, fontWeight: 600 }}>Copy</button>
-            <button className="export-btn" style={{ background: '#f6f8fa', color: '#7bb86f', border: '1px solid #e2e8f0', borderRadius: 6, fontWeight: 600 }}>Excel</button>
-            <button className="export-btn" style={{ background: '#f6f8fa', color: '#7bb86f', border: '1px solid #e2e8f0', borderRadius: 6, fontWeight: 600 }}>CSV</button>
-            <button className="export-btn" style={{ background: '#f6f8fa', color: '#7bb86f', border: '1px solid #e2e8f0', borderRadius: 6, fontWeight: 600 }}>PDF</button>
-          </div>
+          <select
+            value={showCount}
+            onChange={e => setShowCount(Number(e.target.value))}
+            style={{ border: '1px solid #e2e8f0', padding: '6px 10px', borderRadius: 6, fontSize: 14 }}
+          >
+            <option>10</option>
+            <option>25</option>
+            <option>50</option>
+            <option>100</option>
+          </select>
         </div>
-        <div className="contacts-table-wrapper" style={{ padding: '0 8px 24px 8px', overflowX: 'auto' }}>
-          <table className="contacts-table" style={{ borderRadius: 14, overflow: 'hidden', fontSize: 16, marginTop: 24, width: '100%', borderCollapse: 'separate', borderSpacing: 0, minWidth: 1000, boxShadow: '0 2px 12px rgba(67,201,127,0.07)' }}>
-            <thead>
-              <tr style={{ background: '#1a4d3a', color: '#fff', fontWeight: 700, fontSize: 17, position: 'sticky', top: 0, zIndex: 2 }}>
-                <th style={{ padding: '14px 10px', borderRight: '1px solid #e2e8f0' }}>SN</th>
-                <th style={{ padding: '14px 10px', borderRight: '1px solid #e2e8f0' }}>User Role</th>
-                <th style={{ padding: '14px 10px', borderRight: '1px solid #e2e8f0' }}>Name</th>
-                <th style={{ padding: '14px 10px', borderRight: '1px solid #e2e8f0' }}>Contact No.</th>
-                <th style={{ padding: '14px 10px', borderRight: '1px solid #e2e8f0' }}>Email Address</th>
-                <th style={{ padding: '14px 10px', borderRight: '1px solid #e2e8f0' }}>Address</th>
-                <th style={{ padding: '14px 10px', borderRight: '1px solid #e2e8f0' }}>City</th>
-                <th style={{ padding: '14px 10px', borderRight: '1px solid #e2e8f0' }}>District</th>
-                <th style={{ padding: '14px 10px', borderRight: '1px solid #e2e8f0' }}>State</th>
-                <th style={{ padding: '14px 10px', borderRight: '1px solid #e2e8f0' }}>Country</th>
-                <th style={{ padding: '14px 10px', textAlign: 'center' }}>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredUsers.length === 0 ? (
-                <tr>
-                  <td colSpan={11} style={{ textAlign: 'center', color: '#64748b', padding: 32, fontSize: 18 }}>
-                    No users found.
+
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
+          <thead>
+            <tr style={{ background: '#e0f2fe', color: '#0f172a', fontWeight: 600 }}>
+              {['SN', 'Role', 'Name', 'Contact', 'Email', 'Address', 'City', 'District', 'State', 'Country', 'Action'].map(h => (
+                <th key={h} style={{ padding: '10px 8px', borderBottom: '1px solid #cbd5e1' }}>{h}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {filteredUsers.length === 0 ? (
+              <tr><td colSpan={11} style={{ textAlign: 'center', padding: 24, color: '#64748b' }}>No users found.</td></tr>
+            ) : (
+              filteredUsers.slice(0, showCount).map((user, idx) => (
+                <tr key={user.id} style={{ background: idx % 2 ? '#f9fafb' : '#fff' }}>
+                  <td style={{ padding: 10 }}>{idx + 1}</td>
+                  <td>{user.role}</td>
+                  <td>{user.name}</td>
+                  <td>{user.contact}</td>
+                  <td>{user.email}</td>
+                  <td>{user.address}</td>
+                  <td>{user.city}</td>
+                  <td>{user.district}</td>
+                  <td>{user.state}</td>
+                  <td>{user.country}</td>
+                  <td style={{ textAlign: 'center' }}>
+                    <button style={{ background: '#e0f7ec', border: 'none', color: '#059669', padding: 6, borderRadius: 6 }}>
+                      <FiEye />
+                    </button>
                   </td>
                 </tr>
-              ) : (
-                filteredUsers.slice(0, showCount).map((user, idx) => (
-                  <tr key={user.id} style={{ background: idx % 2 === 1 ? '#f6f8fa' : '#fff', transition: 'background 0.2s', borderBottom: '1.5px solid #e2e8f0', cursor: 'pointer' }}
-                    onMouseOver={e => e.currentTarget.style.background = '#e6f4ef'}
-                    onMouseOut={e => e.currentTarget.style.background = idx % 2 === 1 ? '#f6f8fa' : '#fff'}
-                  >
-                    <td style={{ padding: '12px 10px', borderRight: '1px solid #f1f5f9' }}>{idx + 1}</td>
-                    <td style={{ padding: '12px 10px', borderRight: '1px solid #f1f5f9' }}>{user.role}</td>
-                    <td style={{ padding: '12px 10px', borderRight: '1px solid #f1f5f9' }}>{user.name}</td>
-                    <td style={{ padding: '12px 10px', borderRight: '1px solid #f1f5f9' }}>{user.contact}</td>
-                    <td style={{ padding: '12px 10px', borderRight: '1px solid #f1f5f9' }}>{user.email}</td>
-                    <td style={{ padding: '12px 10px', borderRight: '1px solid #f1f5f9' }}>{user.address}</td>
-                    <td style={{ padding: '12px 10px', borderRight: '1px solid #f1f5f9' }}>{user.city}</td>
-                    <td style={{ padding: '12px 10px', borderRight: '1px solid #f1f5f9' }}>{user.district}</td>
-                    <td style={{ padding: '12px 10px', borderRight: '1px solid #f1f5f9' }}>{user.state}</td>
-                    <td style={{ padding: '12px 10px', borderRight: '1px solid #f1f5f9' }}>{user.country}</td>
-                    <td style={{ padding: '12px 10px', textAlign: 'center' }}>
-                      <button className="action-btn edit" title="View" style={{ background: '#e8f7ef', color: '#43c97f', borderRadius: 8, fontSize: 18, padding: 8, border: 'none', boxShadow: '0 1px 4px rgba(67,201,127,0.07)' }}>
-                        <FiEye />
-                      </button>
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
+              ))
+            )}
+          </tbody>
+        </table>
       </div>
+
       {showModal && (
-        <div className="add-contact-modal-bg" style={{ zIndex: 3000 }} onClick={() => { setShowModal(false); setFormError(''); setForm(initialForm); }}>
-          <div className="add-contact-modal" style={{ minWidth: 340, maxWidth: 700, borderRadius: 16, boxShadow: '0 8px 32px rgba(37,99,235,0.13)', padding: 0, overflowY: 'auto', maxHeight: '90vh' }} onClick={e => e.stopPropagation()}>
-            <div className="add-contact-header" style={{ background: '#f8fafc', borderBottom: '1px solid #e2e8f0', padding: '24px 32px 12px 32px', borderTopLeftRadius: 16, borderTopRightRadius: 16 }}>
-              <div>
-                <h3 style={{ fontSize: 22, fontWeight: 700, color: '#1a4d3a', margin: 0 }}>Add System User</h3>
-                <div style={{ color: '#64748b', fontSize: 15, marginTop: 2 }}>Fill in the details to add a new system user.</div>
-              </div>
-              <button className="close-btn" style={{ top: 18, right: 18 }} onClick={() => { setShowModal(false); setFormError(''); setForm(initialForm); }}><FiX /></button>
+        <div onClick={() => setShowModal(false)} style={{
+          position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
+          background: 'rgba(0,0,0,0.35)', display: 'flex', justifyContent: 'center', alignItems: 'center',
+          zIndex: 2000
+        }}>
+          <form onClick={e => e.stopPropagation()} onSubmit={handleAddUser} style={{
+            width: '90%', maxWidth: 880, background: '#fff', padding: 32,
+            borderRadius: 12, boxShadow: '0 6px 32px rgba(0,0,0,0.15)', display: 'grid',
+            gridTemplateColumns: '1fr 1fr', gap: 20, position: 'relative'
+          }}>
+            <h3 style={{ gridColumn: '1/3', color: '#1e3a8a', margin: 0 }}>Add New User</h3>
+
+            <button type="button" onClick={() => setShowModal(false)} style={{
+              position: 'absolute', top: 16, right: 16, background: 'transparent',
+              border: 'none', fontSize: 20, color: '#64748b'
+            }}><FiX /></button>
+
+            {['role', 'name', 'contact', 'email', 'password', 'confirmPassword', 'address', 'city', 'district', 'pincode', 'country', 'state'].map((field, idx) => {
+              const isFullWidth = field === 'address';
+              const label = field.charAt(0).toUpperCase() + field.slice(1).replace(/([A-Z])/g, ' $1');
+              return (
+                <label key={field} style={{ gridColumn: isFullWidth ? '1/3' : 'auto' }}>
+                  {label}
+                  {field === 'role' || field === 'country' || field === 'state' ? (
+                    <select name={field} value={form[field]} onChange={handleFormChange} required style={inputStyle(formError && !form[field])}>
+                      <option value="">Select {label}</option>
+                      {field === 'role' && userRoles.map(role => <option key={role}>{role}</option>)}
+                      {field === 'country' && <option>India</option>}
+                      {field === 'state' && ['Uttar Pradesh', 'Gujarat', 'Delhi'].map(s => <option key={s}>{s}</option>)}
+                    </select>
+                  ) : field === 'address' ? (
+                    <textarea name={field} rows={2} value={form[field]} onChange={handleFormChange} required style={inputStyle(formError && !form[field])} />
+                  ) : (
+                    <input name={field} type={field.toLowerCase().includes('password') ? 'password' : 'text'} value={form[field]} onChange={handleFormChange} required={field !== 'pincode'} style={inputStyle(formError && !form[field] && field !== 'pincode')} />
+                  )}
+                </label>
+              );
+            })}
+            <div style={{ gridColumn: '1/3', display: 'flex', justifyContent: 'flex-end', gap: 12 }}>
+              <button type="submit" style={{ background: '#2563eb', color: '#fff', padding: '10px 20px', border: 'none', borderRadius: 6 }}>Submit</button>
+              <button type="button" onClick={() => setShowModal(false)} style={{ background: '#e2e8f0', color: '#1e293b', padding: '10px 20px', border: 'none', borderRadius: 6 }}>Cancel</button>
             </div>
-            <form className="add-contact-form" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, padding: 32, background: '#fff', borderBottomLeftRadius: 16, borderBottomRightRadius: 16 }} onSubmit={handleAddUser}>
-              <label style={{ fontWeight: 500, color: '#334155' }}>User Role
-                <select name="role" value={form.role} onChange={handleFormChange} required style={{ padding: '10px 12px', borderRadius: 6, border: formError && !form.role ? '1.5px solid #ef4444' : '1px solid #e2e8f0', fontSize: 16, background: '#f8fafc', color: '#1e293b', marginTop: 6 }}>
-                  <option value="">Select Role</option>
-                  {userRoles.map(role => <option key={role} value={role}>{role}</option>)}
-                </select>
-              </label>
-              <label style={{ fontWeight: 500, color: '#334155' }}>Name
-                <input name="name" type="text" value={form.name} onChange={handleFormChange} required style={{ padding: '10px 12px', borderRadius: 6, border: formError && !form.name ? '1.5px solid #ef4444' : '1px solid #e2e8f0', fontSize: 16, background: '#f8fafc', color: '#1e293b', marginTop: 6 }} />
-              </label>
-              <label style={{ fontWeight: 500, color: '#334155' }}>Contact No.
-                <input name="contact" type="text" value={form.contact} onChange={handleFormChange} required style={{ padding: '10px 12px', borderRadius: 6, border: formError && !form.contact ? '1.5px solid #ef4444' : '1px solid #e2e8f0', fontSize: 16, background: '#f8fafc', color: '#1e293b', marginTop: 6 }} />
-              </label>
-              <label style={{ fontWeight: 500, color: '#334155' }}>Email
-                <input name="email" type="email" value={form.email} onChange={handleFormChange} required style={{ padding: '10px 12px', borderRadius: 6, border: formError && !form.email ? '1.5px solid #ef4444' : '1px solid #e2e8f0', fontSize: 16, background: '#f8fafc', color: '#1e293b', marginTop: 6 }} />
-              </label>
-              <label style={{ fontWeight: 500, color: '#334155' }}>Password
-                <input name="password" type="password" value={form.password} onChange={handleFormChange} required style={{ padding: '10px 12px', borderRadius: 6, border: formError && !form.password ? '1.5px solid #ef4444' : '1px solid #e2e8f0', fontSize: 16, background: '#f8fafc', color: '#1e293b', marginTop: 6 }} />
-              </label>
-              <label style={{ fontWeight: 500, color: '#334155' }}>Confirm Password
-                <input name="confirmPassword" type="password" value={form.confirmPassword} onChange={handleFormChange} required style={{ padding: '10px 12px', borderRadius: 6, border: formError && !form.confirmPassword ? '1.5px solid #ef4444' : '1px solid #e2e8f0', fontSize: 16, background: '#f8fafc', color: '#1e293b', marginTop: 6 }} />
-              </label>
-              <label style={{ fontWeight: 500, color: '#334155', gridColumn: '1/3' }}>Address
-                <textarea name="address" rows={2} value={form.address} onChange={handleFormChange} required style={{ padding: '10px 12px', borderRadius: 6, border: formError && !form.address ? '1.5px solid #ef4444' : '1px solid #e2e8f0', fontSize: 16, background: '#f8fafc', color: '#1e293b', marginTop: 6, resize: 'vertical' }} />
-              </label>
-              <label style={{ fontWeight: 500, color: '#334155' }}>City
-                <input name="city" type="text" value={form.city} onChange={handleFormChange} required style={{ padding: '10px 12px', borderRadius: 6, border: formError && !form.city ? '1.5px solid #ef4444' : '1px solid #e2e8f0', fontSize: 16, background: '#f8fafc', color: '#1e293b', marginTop: 6 }} />
-              </label>
-              <label style={{ fontWeight: 500, color: '#334155' }}>District
-                <input name="district" type="text" value={form.district} onChange={handleFormChange} required style={{ padding: '10px 12px', borderRadius: 6, border: formError && !form.district ? '1.5px solid #ef4444' : '1px solid #e2e8f0', fontSize: 16, background: '#f8fafc', color: '#1e293b', marginTop: 6 }} />
-              </label>
-              <label style={{ fontWeight: 500, color: '#334155' }}>Pincode
-                <input name="pincode" type="text" value={form.pincode} onChange={handleFormChange} style={{ padding: '10px 12px', borderRadius: 6, border: '1px solid #e2e8f0', fontSize: 16, background: '#f8fafc', color: '#1e293b', marginTop: 6 }} />
-              </label>
-              <label style={{ fontWeight: 500, color: '#334155' }}>Country
-                <select name="country" value={form.country} onChange={handleFormChange} required style={{ padding: '10px 12px', borderRadius: 6, border: formError && !form.country ? '1.5px solid #ef4444' : '1px solid #e2e8f0', fontSize: 16, background: '#f8fafc', color: '#1e293b', marginTop: 6 }}>
-                  <option value="">Select Country</option>
-                  <option>India</option>
-                </select>
-              </label>
-              <label style={{ fontWeight: 500, color: '#334155' }}>State
-                <select name="state" value={form.state} onChange={handleFormChange} required style={{ padding: '10px 12px', borderRadius: 6, border: formError && !form.state ? '1.5px solid #ef4444' : '1px solid #e2e8f0', fontSize: 16, background: '#f8fafc', color: '#1e293b', marginTop: 6 }}>
-                  <option value="">Select State</option>
-                  <option>Uttar Pradesh</option>
-                  <option>Gujarat</option>
-                  <option>Delhi</option>
-                </select>
-              </label>
-              <div style={{ gridColumn: '1/3', display: 'flex', justifyContent: 'flex-end', gap: 10, marginTop: 8 }}>
-                <button className="btn-primary" type="submit" style={{ background: '#2563eb', minWidth: 100, fontSize: 17, padding: '10px 0' }}>Submit</button>
-                <button className="btn-secondary" type="button" style={{ background: '#f1f5f9', color: '#2563eb', border: '1px solid #e2e8f0', fontSize: 17, padding: '10px 0' }} onClick={() => { setShowModal(false); setFormError(''); setForm(initialForm); }}>Cancel</button>
-              </div>
-              {formError && <div style={{ gridColumn: '1/3', color: '#ef4444', fontSize: 15, marginTop: -10 }}>{formError}</div>}
-            </form>
-          </div>
+            {formError && <div style={{ gridColumn: '1/3', color: '#ef4444', fontWeight: 500 }}>{formError}</div>}
+          </form>
         </div>
       )}
     </div>
   );
 };
 
-export default AdminAccounts; 
+const inputStyle = (isError) => ({
+  width: '100%',
+  marginTop: 6,
+  padding: '10px 12px',
+  fontSize: 15,
+  borderRadius: 6,
+  border: isError ? '1.5px solid #ef4444' : '1px solid #cbd5e1',
+  background: '#f9fafb',
+  color: '#1e293b'
+});
+
+export default AdminAccounts;

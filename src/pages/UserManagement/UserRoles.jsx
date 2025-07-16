@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { FiEdit2, FiPlus, FiX, FiTrash2, FiSearch } from 'react-icons/fi';
-import '../../components/Dashboard/ImportantContacts.css';
 
 const initialRoles = [
   { id: 1, role: 'Admin' },
@@ -19,7 +18,9 @@ const UserRoles = () => {
   const [error, setError] = useState('');
   const [deleteId, setDeleteId] = useState(null);
 
-  const filteredRoles = roles.filter(r => r.role.toLowerCase().includes(filter.toLowerCase()));
+  const filteredRoles = roles.filter(r =>
+    r.role.toLowerCase().includes(filter.toLowerCase())
+  );
 
   const handleAddRole = (e) => {
     e.preventDefault();
@@ -39,67 +40,70 @@ const UserRoles = () => {
   };
 
   return (
-    <div className="contacts-container" style={{ padding: 40, maxWidth: 900, margin: '0 auto', fontFamily: 'Inter, Segoe UI, Arial, sans-serif', background: '#f6f8fa', minHeight: '100vh' }}>
-      <div className="contacts-header-row" style={{ marginBottom: 18, alignItems: 'flex-end' }}>
+    <div className="p-6 font-sans min-h-screen bg-[#f9fafb]">
+      {/* Header Section */}
+      <div className="flex justify-between items-center mb-4">
         <div>
-          <h2 style={{ fontSize: '2.2rem', fontWeight: 700, margin: 0, color: '#1a4d3a', letterSpacing: 0.5 }}>User Roles</h2>
-          <div style={{ color: '#7bb86f', fontSize: 18, marginTop: 6, fontWeight: 500 }}>Manage user roles for your organization. Add, filter, edit, or delete roles as needed.</div>
+          <h2 className="text-xl font-bold text-[#1a1a1a]">User Roles</h2>
+          <p className="text-sm text-gray-500">Manage the different user roles in your system.</p>
         </div>
-        <button className="add-contact-btn" style={{ background: 'linear-gradient(90deg, #7bb86f 0%, #43c97f 100%)', color: '#fff', fontWeight: 700, fontSize: 17, boxShadow: '0 2px 8px rgba(67,201,127,0.10)', border: 'none', padding: '12px 28px', borderRadius: 10 }} onClick={() => setShowModal(true)}>
-          <FiPlus className="add-icon" /> Add Role
+        <button
+          className="flex items-center gap-2 bg-gradient-to-r from-emerald-400 to-emerald-600 text-white px-4 py-2 rounded-md shadow hover:scale-105 transition"
+          onClick={() => setShowModal(true)}
+        >
+          <FiPlus /> Add Role
         </button>
       </div>
-      <div className="contacts-table-card" style={{ borderRadius: 18, boxShadow: '0 6px 32px rgba(67,201,127,0.08)', background: '#fff', padding: 0, overflow: 'hidden' }}>
-        <div className="contacts-table-toolbar" style={{ marginBottom: 0, padding: '24px 32px 0 32px', display: 'flex', alignItems: 'center', gap: 18 }}>
-          <div className="contacts-filter" style={{ flex: 1, display: 'flex', alignItems: 'center', background: '#f6f8fa', borderRadius: 8, padding: '8px 16px', border: '1.5px solid #e2e8f0' }}>
-            <FiSearch style={{ color: '#7bb86f', fontSize: 20, marginRight: 10 }} />
+
+      {/* Filter & Table */}
+      <div className="bg-white rounded-xl shadow overflow-hidden">
+        <div className="flex flex-wrap items-center justify-between gap-2 px-4 py-3 border-b">
+          <div className="flex items-center bg-gray-100 px-3 py-1.5 rounded">
+            <FiSearch className="text-emerald-500 mr-2" />
             <input
               type="text"
-              placeholder="Type to filter..."
+              placeholder="Search role..."
               value={filter}
               onChange={e => setFilter(e.target.value)}
-              style={{ minWidth: 220, border: 'none', outline: 'none', background: 'transparent', fontSize: 17, color: '#1a4d3a' }}
+              className="bg-transparent outline-none text-sm"
             />
           </div>
-          <div className="contacts-export-group" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <label style={{ color: '#64748b', fontWeight: 500 }}>Show:</label>
-            <select style={{ borderRadius: 6, border: '1px solid #e2e8f0', padding: '6px 12px', fontSize: 16, background: '#f8fafc', color: '#1a4d3a' }}>
-              <option>25</option>
-              <option>50</option>
-              <option>100</option>
-            </select>
-            <button className="export-btn" style={{ background: '#f6f8fa', color: '#7bb86f', border: '1px solid #e2e8f0', borderRadius: 6, fontWeight: 600 }}>Copy</button>
-            <button className="export-btn" style={{ background: '#f6f8fa', color: '#7bb86f', border: '1px solid #e2e8f0', borderRadius: 6, fontWeight: 600 }}>Excel</button>
-            <button className="export-btn" style={{ background: '#f6f8fa', color: '#7bb86f', border: '1px solid #e2e8f0', borderRadius: 6, fontWeight: 600 }}>CSV</button>
-            <button className="export-btn" style={{ background: '#f6f8fa', color: '#7bb86f', border: '1px solid #e2e8f0', borderRadius: 6, fontWeight: 600 }}>PDF</button>
-          </div>
         </div>
-        <div className="contacts-table-wrapper" style={{ padding: '0 32px 32px 32px' }}>
-          <table className="contacts-table" style={{ borderRadius: 14, overflow: 'hidden', fontSize: 16, marginTop: 24 }}>
-            <thead>
-              <tr style={{ background: '#f6f8fa', color: '#1a4d3a', fontWeight: 700, fontSize: 17 }}>
-                <th style={{ width: 60 }}>SN</th>
-                <th>Role</th>
-                <th style={{ textAlign: 'center', width: 140 }}>Action</th>
+
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm text-left">
+            <thead className="bg-emerald-100 text-emerald-900 font-semibold">
+              <tr>
+                <th className="px-4 py-2 w-16">SN</th>
+                <th className="px-4 py-2">Role</th>
+                <th className="px-4 py-2 text-center w-32">Action</th>
               </tr>
             </thead>
             <tbody>
               {filteredRoles.length === 0 ? (
                 <tr>
-                  <td colSpan={3} style={{ textAlign: 'center', color: '#64748b', padding: 32, fontSize: 18 }}>
-                    No roles found.
-                  </td>
+                  <td colSpan={3} className="text-center text-gray-400 py-6">No roles found.</td>
                 </tr>
               ) : (
                 filteredRoles.map((role, idx) => (
-                  <tr key={role.id} style={{ background: idx % 2 === 1 ? '#f8fafc' : '#fff', transition: 'background 0.2s', borderBottom: '1.5px solid #f1f5f9' }}>
-                    <td>{idx + 1}</td>
-                    <td style={{ fontWeight: 500 }}>{role.role}</td>
-                    <td style={{ textAlign: 'center' }}>
-                      <button className="action-btn edit" title="Edit" style={{ background: '#e8f7ef', color: '#43c97f', borderRadius: 8, fontSize: 18, padding: 8, border: 'none', marginRight: 8, boxShadow: '0 1px 4px rgba(67,201,127,0.07)' }}>
+                  <tr
+                    key={role.id}
+                    className={idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
+                  >
+                    <td className="px-4 py-2">{idx + 1}</td>
+                    <td className="px-4 py-2 font-medium">{role.role}</td>
+                    <td className="px-4 py-2 text-center">
+                      <button
+                        className="bg-yellow-100 text-yellow-600 hover:bg-yellow-200 rounded px-2 py-1 text-sm font-semibold mr-2"
+                        title="Edit"
+                      >
                         <FiEdit2 />
                       </button>
-                      <button className="action-btn delete" title="Delete" style={{ background: '#fef2f2', color: '#ef4444', borderRadius: 8, fontSize: 18, padding: 8, border: 'none', boxShadow: '0 1px 4px rgba(239,68,68,0.07)' }} onClick={() => setDeleteId(role.id)}>
+                      <button
+                        className="bg-red-100 text-red-600 hover:bg-red-200 rounded px-2 py-1 text-sm font-semibold"
+                        title="Delete"
+                        onClick={() => setDeleteId(role.id)}
+                      >
                         <FiTrash2 />
                       </button>
                     </td>
@@ -110,45 +114,93 @@ const UserRoles = () => {
           </table>
         </div>
       </div>
+
+      {/* Add Role Modal */}
       {showModal && (
-        <div className="add-contact-modal-bg" style={{ zIndex: 3000 }} onClick={() => { setShowModal(false); setError(''); }}>
-          <div className="add-contact-modal" style={{ minWidth: 340, maxWidth: 400, borderRadius: 14, boxShadow: '0 8px 32px rgba(37,99,235,0.13)' }} onClick={e => e.stopPropagation()}>
-            <div className="add-contact-header">
-              <h3 style={{ fontSize: 20, fontWeight: 700, color: '#1a4d3a' }}>Add New Role</h3>
-              <button className="close-btn" onClick={() => { setShowModal(false); setError(''); }}><FiX /></button>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+          <div
+            className="bg-white rounded-lg shadow-lg p-6 w-full max-w-xs relative"
+            onClick={e => e.stopPropagation()}
+          >
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-lg font-bold text-gray-800">Add New Role</h3>
+              <button
+                onClick={() => {
+                  setShowModal(false);
+                  setError('');
+                }}
+                className="text-gray-400 hover:text-red-500 text-xl"
+              >
+                <FiX />
+              </button>
             </div>
-            <form className="add-contact-form" onSubmit={handleAddRole}>
-              <label style={{ fontWeight: 500, color: '#334155' }}>
-                Name
-                <input
-                  type="text"
-                  value={newRole}
-                  onChange={e => { setNewRole(e.target.value); setError(''); }}
-                  required
-                  autoFocus
-                  style={{ borderColor: error ? '#ef4444' : undefined }}
-                />
-              </label>
-              {error && <div style={{ color: '#ef4444', fontSize: 14, marginTop: -10, marginBottom: 8 }}>{error}</div>}
-              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 10 }}>
-                <button className="btn-primary" type="submit" style={{ background: '#2563eb', minWidth: 100 }}>Submit</button>
-                <button className="btn-secondary" type="button" style={{ background: '#f1f5f9', color: '#2563eb', border: '1px solid #e2e8f0' }} onClick={() => { setShowModal(false); setError(''); }}>Cancel</button>
+            <form onSubmit={handleAddRole} className="flex flex-col gap-3">
+              <input
+                type="text"
+                placeholder="Role name"
+                value={newRole}
+                onChange={(e) => {
+                  setNewRole(e.target.value);
+                  setError('');
+                }}
+                className={`border rounded px-3 py-2 text-sm ${
+                  error ? 'border-red-400' : 'border-gray-300'
+                }`}
+              />
+              {error && <p className="text-xs text-red-500">{error}</p>}
+              <div className="flex justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowModal(false);
+                    setError('');
+                  }}
+                  className="px-4 py-1.5 text-sm bg-gray-100 border border-gray-200 rounded hover:bg-gray-200"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-1.5 text-sm bg-emerald-600 text-white rounded hover:bg-emerald-700"
+                >
+                  Submit
+                </button>
               </div>
             </form>
           </div>
         </div>
       )}
+
+      {/* Delete Modal */}
       {deleteId !== null && (
-        <div className="add-contact-modal-bg" style={{ zIndex: 3100 }} onClick={() => setDeleteId(null)}>
-          <div className="add-contact-modal" style={{ minWidth: 320, maxWidth: 380, borderRadius: 14, boxShadow: '0 8px 32px rgba(239,68,68,0.13)' }} onClick={e => e.stopPropagation()}>
-            <div className="add-contact-header">
-              <h3 style={{ fontSize: 18, fontWeight: 700, color: '#ef4444' }}>Delete Role</h3>
-              <button className="close-btn" onClick={() => setDeleteId(null)}><FiX /></button>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+          <div
+            className="bg-white rounded-lg shadow-lg p-6 w-full max-w-xs relative"
+            onClick={e => e.stopPropagation()}
+          >
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-lg font-bold text-red-500">Delete Role</h3>
+              <button
+                onClick={() => setDeleteId(null)}
+                className="text-gray-400 hover:text-red-500 text-xl"
+              >
+                <FiX />
+              </button>
             </div>
-            <div style={{ fontSize: 16, color: '#334155', marginBottom: 18 }}>Are you sure you want to delete this role?</div>
-            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 10 }}>
-              <button className="btn-secondary" type="button" style={{ background: '#f1f5f9', color: '#2563eb', border: '1px solid #e2e8f0' }} onClick={() => setDeleteId(null)}>Cancel</button>
-              <button className="btn-primary" type="button" style={{ background: '#ef4444', minWidth: 100 }} onClick={() => handleDeleteRole(deleteId)}>Delete</button>
+            <p className="text-sm text-gray-700 mb-4">Are you sure you want to delete this role?</p>
+            <div className="flex justify-end gap-2">
+              <button
+                className="px-4 py-1.5 text-sm bg-gray-100 border border-gray-200 rounded hover:bg-gray-200"
+                onClick={() => setDeleteId(null)}
+              >
+                Cancel
+              </button>
+              <button
+                className="px-4 py-1.5 text-sm bg-red-500 text-white rounded hover:bg-red-600"
+                onClick={() => handleDeleteRole(deleteId)}
+              >
+                Delete
+              </button>
             </div>
           </div>
         </div>
@@ -157,4 +209,4 @@ const UserRoles = () => {
   );
 };
 
-export default UserRoles; 
+export default UserRoles;
