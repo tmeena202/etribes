@@ -13,10 +13,10 @@ const UserChart = ({ data }) => {
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
-        <div className="custom-tooltip">
-          <p className="label">{label}</p>
+        <div className="bg-black bg-opacity-90 text-white p-3 rounded-md shadow-lg">
+          <p className="font-semibold mb-1 text-slate-100">{label}</p>
           {payload.map((entry, index) => (
-            <p key={index} style={{ color: entry.color }}>
+            <p key={index} style={{ color: entry.color }} className="text-sm mb-0.5">
               {entry.name}: {entry.value}
             </p>
           ))}
@@ -27,8 +27,8 @@ const UserChart = ({ data }) => {
   };
 
   return (
-    <div className="chart-card">
-      <h3>User Growth</h3>
+    <div className="bg-white p-6 rounded-xl shadow-md border border-slate-100 w-full overflow-hidden animate-fadeInUp">
+      <h3 className="text-lg font-semibold text-slate-800 mb-4">User Growth</h3>
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={data}>
           <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
