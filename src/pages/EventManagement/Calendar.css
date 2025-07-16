@@ -34,7 +34,7 @@
   border-radius: 12px;
   border: 1px solid var(--border-color);
   margin-bottom: 0.5rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .calendar-header h1 {
@@ -114,7 +114,7 @@
   border-radius: 12px;
   padding: 0.4rem;
   border: 1px solid var(--border-color);
-  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
   /* Remove max-height so it can match calendar height */
   max-height: none;
   overflow-y: auto;
@@ -155,7 +155,7 @@
   margin-top: 1rem;
   flex: 0.5;
   border: 1px solid var(--border-color);
-  box-shadow: 0 0 8px rgba(0,0,0,0.05);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
 }
 
 .legend-item {
@@ -176,9 +176,11 @@
 .legend-dot.past {
   background: var(--red);
 }
+
 .legend-dot.upcoming {
   background: var(--emerald);
 }
+
 .legend-dot.today {
   background: var(--cyan);
 }
@@ -193,7 +195,7 @@
   background: var(--legend-panel);
   border-radius: 12px;
   border: 1px solid var(--border-color);
-  box-shadow: 0 0 8px rgba(0,0,0,0.05);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
 }
 
 .calendar-legend-card.legend-inline .legend-item {
@@ -263,7 +265,7 @@
   background: #fff;
   color: #232526;
   border-radius: 10px;
-  box-shadow: 0 4px 16px rgba(30,41,59,0.18);
+  box-shadow: 0 4px 16px rgba(30, 41, 59, 0.18);
   padding: 10px 16px;
   z-index: 10;
   min-width: 180px;
@@ -290,15 +292,18 @@
   border-radius: 8px;
   transition: background 0.2s, box-shadow 0.2s;
 }
+
 .custom-date-cell:hover {
   background: #f8fafc;
-  box-shadow: 0 2px 8px rgba(99,102,241,0.08);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.08);
 }
+
 .custom-date-cell.selected {
   background: #ffe0ec;
-  box-shadow: 0 2px 12px rgba(236,72,153,0.13);
+  box-shadow: 0 2px 12px rgba(236, 72, 153, 0.13);
   border: 2px solid #ec4899;
 }
+
 .event-dot {
   position: absolute;
   bottom: 6px;
@@ -308,7 +313,7 @@
   height: 7px;
   background: #ec4899;
   border-radius: 50%;
-  box-shadow: 0 1px 4px rgba(236,72,153,0.18);
+  box-shadow: 0 1px 4px rgba(236, 72, 153, 0.18);
 }
 
 .legend-pill {
@@ -317,10 +322,11 @@
   padding: 0.2rem 0.9rem;
   font-weight: 600;
   color: #c026d3;
-  box-shadow: 0 1px 4px rgba(236,72,153,0.08);
+  box-shadow: 0 1px 4px rgba(236, 72, 153, 0.08);
   transition: background 0.18s, color 0.18s;
   cursor: help;
 }
+
 .legend-pill:hover {
   background: #ffe0ec;
   color: #ec4899;
@@ -336,9 +342,10 @@
   font-weight: 700;
   margin-bottom: 1rem;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(236,72,153,0.10);
+  box-shadow: 0 2px 8px rgba(236, 72, 153, 0.10);
   transition: background 0.18s, transform 0.12s;
 }
+
 .create-event-btn:hover {
   background: linear-gradient(90deg, #f472b6 0%, #ec4899 100%);
   transform: translateY(-2px) scale(1.04);
@@ -374,10 +381,13 @@
     flex-direction: column;
     gap: 0.4rem;
   }
-  .calendar-glass-card, .event-details-card {
+
+  .calendar-glass-card,
+  .event-details-card {
     min-width: 0;
     width: 100%;
   }
+
   .calendar-legend-card.legend-inline {
     justify-content: center;
     flex-wrap: wrap;
@@ -390,9 +400,11 @@
     align-items: flex-start;
     font-size: 0.98rem;
   }
+
   .calendar-header-date {
     font-size: 1rem;
   }
+
   .calendar-header-time {
     font-size: 0.95rem;
   }
