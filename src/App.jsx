@@ -9,16 +9,16 @@ import TodaysEvents from "./pages/EventManagement/TodaysEvents";
 import UpcomingEvent from "./pages/EventManagement/UpcomingEvent";
 import PastEvent from "./pages/EventManagement/PastEvent";
 import AllEvent from "./pages/EventManagement/AllEvent";
-import EventManagement from "./pages/EventManagement/EventManagement";
 import UserRoles from "./pages/UserManagement/UserRoles";
 import AdminAccounts from "./pages/UserManagement/AdminAccounts";
-import "./App.css";
 
 function App() {
+  // If you want to support sidebar collapse, you can manage state here
+  // const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   return (
-    <div className="app-container">
+    <div className="flex min-h-screen bg-gray-50">
       <Sidebar />
-      <div className="main-content">
+      <div className="flex-1 min-h-screen transition-all duration-300 ml-[270px] md:ml-[270px] p-0">
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/register" element={<NewRegistration />} />
@@ -28,7 +28,6 @@ function App() {
           <Route path="/events/upcoming" element={<UpcomingEvent />} />
           <Route path="/events/past" element={<PastEvent />} />
           <Route path="/events/all" element={<AllEvent />} />
-          <Route path="/events" element={<EventManagement />} />
           <Route path="/user-management/roles" element={<UserRoles />} />
           <Route path="/user-management/admin-accounts" element={<AdminAccounts />} />
         </Routes>

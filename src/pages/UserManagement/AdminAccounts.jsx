@@ -136,49 +136,37 @@ const AdminAccounts = () => {
       </div>
 
       {showModal && (
-        <div onClick={() => setShowModal(false)} style={{
-          position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
-          background: 'rgba(0,0,0,0.35)', display: 'flex', justifyContent: 'center', alignItems: 'center',
-          zIndex: 2000
-        }}>
-          <form onClick={e => e.stopPropagation()} onSubmit={handleAddUser} style={{
-            width: '90%', maxWidth: 880, background: '#fff', padding: 32,
-            borderRadius: 12, boxShadow: '0 6px 32px rgba(0,0,0,0.15)', display: 'grid',
-            gridTemplateColumns: '1fr 1fr', gap: 20, position: 'relative'
-          }}>
-            <h3 style={{ gridColumn: '1/3', color: '#1e3a8a', margin: 0 }}>Add New User</h3>
-
-            <button type="button" onClick={() => setShowModal(false)} style={{
-              position: 'absolute', top: 16, right: 16, background: 'transparent',
-              border: 'none', fontSize: 20, color: '#64748b'
-            }}><FiX /></button>
-
-            {['role', 'name', 'contact', 'email', 'password', 'confirmPassword', 'address', 'city', 'district', 'pincode', 'country', 'state'].map((field, idx) => {
+        <div onClick={() => setShowModal(false)} className="fixed inset-0 bg-black/40 flex justify-center items-center z-[2000]">
+          <form onClick={e => e.stopPropagation()} onSubmit={handleAddUser} className="w-[95vw] max-w-3xl bg-white p-8 rounded-2xl shadow-2xl grid grid-cols-1 md:grid-cols-2 gap-5 relative animate-fadeIn max-h-[90vh] overflow-y-auto">
+            <h3 className="md:col-span-2 text-2xl font-bold text-blue-900 m-0">Add New User</h3>
+            <button type="button" onClick={() => setShowModal(false)} className="absolute top-4 right-4 bg-transparent border-none text-2xl text-slate-400 hover:text-blue-600 transition-colors"><FiX /></button>
+            {['role', 'name', 'contact', 'email', 'password', 'confirmPassword', 'address', 'city', 'district', 'pincode', 'country', 'state'].map((field) => {
               const isFullWidth = field === 'address';
               const label = field.charAt(0).toUpperCase() + field.slice(1).replace(/([A-Z])/g, ' $1');
+              const isError = formError && !form[field] && field !== 'pincode';
               return (
-                <label key={field} style={{ gridColumn: isFullWidth ? '1/3' : 'auto' }}>
+                <label key={field} className={`${isFullWidth ? 'md:col-span-2' : ''} flex flex-col font-medium text-slate-700 text-base`}>
                   {label}
                   {field === 'role' || field === 'country' || field === 'state' ? (
-                    <select name={field} value={form[field]} onChange={handleFormChange} required style={inputStyle(formError && !form[field])}>
+                    <select name={field} value={form[field]} onChange={handleFormChange} required className={`mt-1 px-3 py-2 rounded-md border ${isError ? 'border-red-400' : 'border-slate-300'} bg-slate-50 text-slate-800 focus:border-blue-600 focus:ring-2 focus:ring-blue-200 outline-none transition`}>
                       <option value="">Select {label}</option>
                       {field === 'role' && userRoles.map(role => <option key={role}>{role}</option>)}
                       {field === 'country' && <option>India</option>}
                       {field === 'state' && ['Uttar Pradesh', 'Gujarat', 'Delhi'].map(s => <option key={s}>{s}</option>)}
                     </select>
                   ) : field === 'address' ? (
-                    <textarea name={field} rows={2} value={form[field]} onChange={handleFormChange} required style={inputStyle(formError && !form[field])} />
+                    <textarea name={field} rows={2} value={form[field]} onChange={handleFormChange} required className={`mt-1 px-3 py-2 rounded-md border ${isError ? 'border-red-400' : 'border-slate-300'} bg-slate-50 text-slate-800 focus:border-blue-600 focus:ring-2 focus:ring-blue-200 outline-none transition`} />
                   ) : (
-                    <input name={field} type={field.toLowerCase().includes('password') ? 'password' : 'text'} value={form[field]} onChange={handleFormChange} required={field !== 'pincode'} style={inputStyle(formError && !form[field] && field !== 'pincode')} />
+                    <input name={field} type={field.toLowerCase().includes('password') ? 'password' : 'text'} value={form[field]} onChange={handleFormChange} required={field !== 'pincode'} className={`mt-1 px-3 py-2 rounded-md border ${isError ? 'border-red-400' : 'border-slate-300'} bg-slate-50 text-slate-800 focus:border-blue-600 focus:ring-2 focus:ring-blue-200 outline-none transition`} />
                   )}
                 </label>
               );
             })}
-            <div style={{ gridColumn: '1/3', display: 'flex', justifyContent: 'flex-end', gap: 12 }}>
-              <button type="submit" style={{ background: '#2563eb', color: '#fff', padding: '10px 20px', border: 'none', borderRadius: 6 }}>Submit</button>
-              <button type="button" onClick={() => setShowModal(false)} style={{ background: '#e2e8f0', color: '#1e293b', padding: '10px 20px', border: 'none', borderRadius: 6 }}>Cancel</button>
+            <div className="md:col-span-2 flex justify-end gap-4 mt-2">
+              <button type="submit" className="bg-gradient-to-r from-blue-600 to-blue-800 text-white px-7 py-2 rounded-md font-bold shadow-md transition-all duration-200 hover:bg-green-600 hover:from-green-600 hover:to-green-700 focus:bg-green-600 scale-105">Submit</button>
+              <button type="button" onClick={() => setShowModal(false)} className="bg-slate-200 text-slate-800 px-7 py-2 rounded-md font-semibold transition hover:bg-slate-300 hover:text-blue-600">Cancel</button>
             </div>
-            {formError && <div style={{ gridColumn: '1/3', color: '#ef4444', fontWeight: 500 }}>{formError}</div>}
+            {formError && <div className="md:col-span-2 text-red-500 font-semibold mt-1">{formError}</div>}
           </form>
         </div>
       )}

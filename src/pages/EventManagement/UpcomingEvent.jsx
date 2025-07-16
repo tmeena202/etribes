@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import AddEventForm from "../../components/Dashboard/AddEventForm";
-import styles from "./UpcomingEvent.module.css";
 import { FaCalendarAlt, FaPlus, FaInfoCircle, FaEye } from "react-icons/fa";
 
 const UpcomingEvent = () => {
@@ -37,51 +36,52 @@ const UpcomingEvent = () => {
   };
 
   return (
-    <div className={styles.mainContent}>
-      <div className={styles.container}>
-        <div className={styles.headerRow}>
-          <h2 className={styles.title}>
-            <FaCalendarAlt style={{ color: "#2563eb" }} />
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-emerald-50 to-white py-6 px-2 sm:px-6">
+      <div className="max-w-3xl mx-auto">
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-3">
+          <h2 className="flex items-center text-2xl font-bold text-emerald-700 gap-2">
+            <FaCalendarAlt className="text-blue-600 text-2xl" />
             Upcoming Events
           </h2>
           <button
             onClick={() => setShowModal(true)}
-            className={styles.addBtn}
+            className="flex items-center gap-2 bg-gradient-to-r from-emerald-400 to-emerald-600 text-white font-semibold px-4 py-2 rounded-md shadow hover:scale-105 transition"
           >
             <FaPlus /> Add Event
           </button>
         </div>
-        <div className={styles.infoText}>
-          <FaInfoCircle style={{ fontSize: "1.2em" }} />
+        <div className="flex items-center bg-blue-50 text-blue-700 rounded-lg px-4 py-2 mb-4 shadow-sm text-sm">
+          <FaInfoCircle className="mr-2 text-lg" />
           Here you can view, add, and manage all upcoming events. Plan ahead and never miss an important date!
         </div>
-        <div className={styles.card}>
-          <table className={styles.table}>
-            <thead className={styles.thead}>
+        <div className="bg-white rounded-xl shadow p-0 overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead className="bg-emerald-100 text-emerald-900 font-semibold">
               <tr>
-                <th className={styles.th}>Sr No.</th>
-                <th className={styles.th}>Event</th>
-                <th className={styles.th}>Agenda</th>
-                <th className={styles.th}>Venue</th>
-                <th className={styles.th}>Date & Time</th>
-                <th className={styles.th}>View</th>
+                <th className="px-4 py-2">Sr No.</th>
+                <th className="px-4 py-2">Event</th>
+                <th className="px-4 py-2">Agenda</th>
+                <th className="px-4 py-2">Venue</th>
+                <th className="px-4 py-2">Date & Time</th>
+                <th className="px-4 py-2">View</th>
               </tr>
             </thead>
             <tbody>
               {events.length === 0 ? (
                 <tr>
-                  <td colSpan="6" className={styles.emptyRow}>No data available in table</td>
+                  <td colSpan="6" className="text-center text-gray-400 py-6">No data available in table</td>
                 </tr>
               ) : (
                 events.map((ev, idx) => (
-                  <tr key={ev.id} style={{ borderBottom: "1px solid #f0f0f0" }}>
-                    <td className={styles.td}>{idx + 1}</td>
-                    <td className={styles.td}>{ev.event}</td>
-                    <td className={styles.td}>{ev.agenda}</td>
-                    <td className={styles.td}>{ev.venue}</td>
-                    <td className={styles.td}>{ev.datetime && new Date(ev.datetime).toLocaleString()}</td>
-                    <td className={styles.td}>
-                      <button className={styles.viewBtn}><FaEye /></button>
+                  <tr key={ev.id} className={idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                    <td className="px-4 py-2 text-center">{idx + 1}</td>
+                    <td className="px-4 py-2">{ev.event}</td>
+                    <td className="px-4 py-2">{ev.agenda}</td>
+                    <td className="px-4 py-2">{ev.venue}</td>
+                    <td className="px-4 py-2">{ev.datetime && new Date(ev.datetime).toLocaleString()}</td>
+                    <td className="px-4 py-2 text-center">
+                      <button className="bg-blue-100 text-blue-700 px-3 py-1 rounded hover:bg-blue-200 transition text-xs font-semibold"><FaEye /></button>
                     </td>
                   </tr>
                 ))
