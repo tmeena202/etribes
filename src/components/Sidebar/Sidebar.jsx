@@ -65,7 +65,7 @@ const Sidebar = () => {
   };
 
   return (
-    <aside className="w-[270px] h-screen bg-gradient-to-b from-[#1a4d3a]/90 via-[#174c3a]/95 to-[#1a4d3a]/90 text-white p-3 flex flex-col fixed top-0 left-0 border-r border-[#2d6b4f] z-[1000] overflow-y-auto transition-all duration-350 backdrop-blur-md shadow-2xl scrollbar-none scrollbar-hide">
+    <aside className="w-[270px] h-screen bg-gradient-to-b from-[#1a4d3a]/90 via-[#174c3a]/95 to-[#1a4d3a]/90 text-white p-3 flex flex-col fixed top-0 left-0 border-r border-[#2d6b4f] z-[1000] overflow-y-auto transition-all duration-350 backdrop-blur-md shadow-2xl scrollbar-none scrollbar-hide hide-scrollbar">
       <div className="flex items-center justify-between mb-6 px-4">
         <div className="font-bold text-xl flex items-center gap-2 relative drop-shadow">
           <span className="text-emerald-400 text-2xl animate-pulse">✦</span>
@@ -119,6 +119,7 @@ const Sidebar = () => {
             links={[
               { to: "/user-management/admin-accounts", label: "Admin Accounts" },
               { to: "/user-management/roles", label: "User Roles" },
+              { to: "/user-management/role-management", label: "Role Management" },
             ]}
           />
 

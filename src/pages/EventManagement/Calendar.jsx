@@ -15,7 +15,7 @@ const localizer = dateFnsLocalizer({
 });
 
 // -- Sample events -------------------------------------------------------------
-const sampleEvents = [
+const initialEvents = [
   {
     name: "Annual Meetup",
     date: new Date(new Date().setDate(new Date().getDate() - 2)),
@@ -75,13 +75,15 @@ const sampleEvents = [
 ];
 
 // -- Map to react-big-calendar format ------------------------------------------
-const bigCalendarEvents = sampleEvents.map((ev) => ({
-  title: ev.name,
-  start: new Date(ev.date),
-  end: new Date(ev.date),
-  allDay: true,
-  resource: ev,
-}));
+function mapToBigCalendarEvents(events) {
+  return events.map((ev) => ({
+    title: ev.name,
+    start: new Date(ev.date),
+    end: new Date(ev.date),
+    allDay: true,
+    resource: ev,
+  }));
+}
 
 // -- Helpers ------------------------------------------------------------------
 function isSameDay(d1, d2) {
@@ -99,8 +101,8 @@ function getEventDotColor(events) {
 }
 
 // -- Custom date cell with colored dot & tooltip --------------------------------
-const CustomDateCell = ({ value, children, onClick }) => {
-  const eventsForDay = sampleEvents.filter((ev) => isSameDay(ev.date, value));
+const CustomDateCell = ({ value, children, onClick, events }) => {
+  const eventsForDay = events.filter((ev) => isSameDay(ev.date, value));
   const isSelected = isSameDay(value, onClick.selectedDate);
   const dotColor = getEventDotColor(eventsForDay);
 
@@ -131,8 +133,18 @@ const CustomDateCell = ({ value, children, onClick }) => {
 
 // -- Main Calendar Page --------------------------------------------------------
 const CalendarPage = () => {
+  const [events, setEvents] = useState(initialEvents);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [time, setTime] = useState(new Date());
+  const [showForm, setShowForm] = useState(false);
+  const [form, setForm] = useState({
+    name: '',
+    date: '',
+    attendees: '',
+    description: '',
+    type: 'upcoming',
+  });
+  const [formError, setFormError] = useState('');
 
   // live clock update
   useEffect(() => {
@@ -141,9 +153,46 @@ const CalendarPage = () => {
   }, []);
 
   // filter events on the selected date
-  const eventsForDate = sampleEvents.filter((ev) =>
+  const eventsForDate = events.filter((ev) =>
     isSameDay(ev.date, selectedDate)
   );
+
+  // Map events for calendar
+  const bigCalendarEvents = mapToBigCalendarEvents(events);
+
+  // Handle form input
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // Handle form submit
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    setFormError('');
+    if (!form.name || !form.date || !form.attendees || !form.description) {
+      setFormError('All fields are required.');
+      return;
+    }
+    const eventDate = new Date(form.date);
+    let type = 'upcoming';
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    eventDate.setHours(0,0,0,0);
+    if (isSameDay(eventDate, today)) type = 'today';
+    else if (eventDate < today) type = 'past';
+    const newEvent = {
+      name: form.name,
+      date: eventDate,
+      attendees: Number(form.attendees),
+      description: form.description,
+      type,
+    };
+    setEvents((prev) => [...prev, newEvent]);
+    setShowForm(false);
+    setForm({ name: '', date: '', attendees: '', description: '', type: 'upcoming' });
+    setSelectedDate(eventDate);
+  };
 
   return (
     <div className="relative min-h-screen overflow-x-hidden">
@@ -195,8 +244,39 @@ const CalendarPage = () => {
         </div>
 
         <div className="flex flex-col md:flex-row gap-6 items-start justify-center max-w-5xl mx-auto">
-          {/* Calendar */}
+          {/* Calendar + Add Event */}
           <div className="flex-1 min-w-[320px] bg-white/80 rounded-2xl shadow-xl p-4 md:p-6 backdrop-blur border border-emerald-100">
+            <div className="flex justify-between items-center mb-3">
+              <span className="font-semibold text-emerald-700 text-lg">Event Calendar</span>
+              <button
+                className="px-3 py-1 bg-emerald-500 text-white rounded hover:bg-emerald-600 transition text-sm"
+                onClick={() => setShowForm((v) => !v)}
+              >
+                {showForm ? 'Close' : '+ Add Event'}
+              </button>
+            </div>
+            {showForm && (
+              <form onSubmit={handleFormSubmit} className="mb-4 bg-emerald-50/80 p-4 rounded-lg border border-emerald-200 shadow">
+                <div className="mb-2">
+                  <label className="block text-sm font-medium mb-1">Event Name</label>
+                  <input type="text" name="name" value={form.name} onChange={handleFormChange} className="w-full px-2 py-1 border rounded focus:ring-emerald-400 focus:outline-none" />
+                </div>
+                <div className="mb-2">
+                  <label className="block text-sm font-medium mb-1">Date</label>
+                  <input type="date" name="date" value={form.date} onChange={handleFormChange} className="w-full px-2 py-1 border rounded focus:ring-emerald-400 focus:outline-none" />
+                </div>
+                <div className="mb-2">
+                  <label className="block text-sm font-medium mb-1">Attendees</label>
+                  <input type="number" name="attendees" value={form.attendees} onChange={handleFormChange} className="w-full px-2 py-1 border rounded focus:ring-emerald-400 focus:outline-none" min="1" />
+                </div>
+                <div className="mb-2">
+                  <label className="block text-sm font-medium mb-1">Description</label>
+                  <textarea name="description" value={form.description} onChange={handleFormChange} className="w-full px-2 py-1 border rounded focus:ring-emerald-400 focus:outline-none" rows={2} />
+                </div>
+                {formError && <div className="text-red-500 text-xs mb-2">{formError}</div>}
+                <button type="submit" className="w-full bg-emerald-600 text-white py-2 rounded hover:bg-emerald-700 transition">Add Event</button>
+              </form>
+            )}
             <Calendar
               localizer={localizer}
               events={bigCalendarEvents}
@@ -230,16 +310,15 @@ const CalendarPage = () => {
                   <CustomDateCell
                     {...props}
                     onClick={{ setSelectedDate, selectedDate }}
+                    events={events}
                   />
                 ),
               }}
             />
-
             <div className="mt-3 text-sm text-gray-600 flex items-center gap-2">
               📅 <span className="font-semibold">Selected:</span>{" "}
               {selectedDate.toDateString()}
             </div>
-
             {/* Legend */}
             <div className="flex gap-4 mt-4 items-center bg-white/60 rounded-lg px-3 py-2 border border-gray-200 shadow-sm text-sm">
               <span className="flex items-center gap-1">

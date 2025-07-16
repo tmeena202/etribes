@@ -11,6 +11,7 @@ import PastEvent from "./pages/EventManagement/PastEvent";
 import AllEvent from "./pages/EventManagement/AllEvent";
 import UserRoles from "./pages/UserManagement/UserRoles";
 import AdminAccounts from "./pages/UserManagement/AdminAccounts";
+import RoleManagement from "./pages/UserManagement/RoleManagement";
 
 function App() {
   // If you want to support sidebar collapse, you can manage state here
@@ -30,6 +31,7 @@ function App() {
           <Route path="/events/all" element={<AllEvent />} />
           <Route path="/user-management/roles" element={<UserRoles />} />
           <Route path="/user-management/admin-accounts" element={<AdminAccounts />} />
+          <Route path="/user-management/role-management" element={<RoleManagement />} />
         </Routes>
       </div>
     </div>
